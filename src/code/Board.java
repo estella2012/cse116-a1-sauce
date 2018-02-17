@@ -9,18 +9,19 @@ import java.util.Collections;
 
 public class Board {
 	
+	private boolean redTeamTurn;
+	
 	//constructor for Board
 	public Board() {
 		
 	}
 	
-	public Location[][] createBoard() {
-		Location[][] board = new Location[5][5];
-		return null;
-		
+	public ArrayList<Location> createBoard() {
+		ArrayList<Location> board = new ArrayList<Location>();
+		return board;
 	}
 	
-	public ArrayList<String> createList() { 
+	public ArrayList<String> createListOfWords() { 
 		ArrayList<String> list = new ArrayList<String>();
 		ArrayList<String> codenameList = new ArrayList<String>();
 
@@ -41,4 +42,34 @@ public class Board {
 		return codenameList;  
 		}
 	
+	public ArrayList<String> createListOfPersons(){
+		ArrayList<String> list = new ArrayList<>();
+		String red = "red";
+		String blue = "blue";
+		String innocent = "innocent";
+		String assassin = "assassin";
+		for(int i = 0; i < 9; i++) {
+			list.add(red);
+		}
+		for(int i = 0; i < 8; i++) {
+			list.add(blue);
+		}
+		for(int i = 0; i < 7; i++) {
+			list.add(innocent);
+		}
+		list.add(assassin);
+		Collections.shuffle(list);
+		return list;	
+	}
+	
+	public void gameStart() {
+		redTeamTurn = true;
+		ArrayList<Location> board = createBoard();
+		ArrayList<String> wordList = createListOfWords();
+		ArrayList<String> personList = createListOfPersons();
+		for(int i = 0; i < 25; i++) {
+			board.get(i).setCodename(wordList.get(i));
+			board.get(i).setPerson(personList.get(i));
+		}
+	}
 }

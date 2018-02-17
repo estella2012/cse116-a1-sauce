@@ -62,7 +62,7 @@ public class BoardTest {
 			e.printStackTrace();
 		}
 		Board bob = new Board();
-		list = bob.createList();
+		list = bob.createListOfWords();
 		
 		String tester = "AFRICAAGENTAIRALIENALPSAMAZON";
 		String testee = "";
