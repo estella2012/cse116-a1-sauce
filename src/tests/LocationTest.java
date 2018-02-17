@@ -6,6 +6,7 @@ import org.junit.Test;
 
 public class LocationTest {
 
+
 	@Test
 	public void testLocation() {
 		fail("Not yet implemented");
