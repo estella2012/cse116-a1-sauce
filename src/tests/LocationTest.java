@@ -35,7 +35,7 @@ public class LocationTest {
 //	public void testGetCodename() {
 //		fail("Not yet implemented");
 //	}
-	
+	//k
 	@Test
 	public void testSetCodename() {
 		test.setCodename("blue");
