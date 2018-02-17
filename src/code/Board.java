@@ -5,7 +5,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 
 
@@ -25,6 +24,7 @@ public class Board {
 	public ArrayList<String> createList() { 
 		ArrayList<String> list = new ArrayList<String>();
 		ArrayList<String> codenameList = new ArrayList<String>();
+
 		try {
 			String filename = "src/code/words.txt";
 			for (String line : Files.readAllLines(Paths.get(filename))) {
