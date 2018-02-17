@@ -20,5 +20,16 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
-
+<<<<<<< HEAD
 /bin/
+=======
+
+<<<<<<< HEAD
+/bin/
+=======
+<<<<<<< HEAD
+>>>>>>> branch 'master' of https://github.com/CSE116-Spring2018/s18semesterproject-a1-sauce.git
+=======
+/bin/
+>>>>>>> branch 'master' of https://github.com/CSE116-Spring2018/s18semesterproject-a1-sauce.git
+>>>>>>> branch 'master' of https://github.com/CSE116-Spring2018/s18semesterproject-a1-sauce.git
