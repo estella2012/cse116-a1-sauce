@@ -5,7 +5,7 @@ import org.junit.Test;
 public class BoardTest {
 	
 	@Test
-	public void bTest() {
+	public void createBoardTest() {
 		
 	}
 
