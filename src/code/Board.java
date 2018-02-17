@@ -11,14 +11,19 @@ public class Board {
 	
 	private boolean redTeamTurn;
 	
+	private ArrayList<Location> board;
+
+	private ArrayList<String> wordList;
+
+	private ArrayList<String> personList;
+	
 	//constructor for Board
 	public Board() {
 		
 	}
 	
-	public ArrayList<Location> createBoard() {
-		ArrayList<Location> board = new ArrayList<Location>();
-		return board;
+	public void createBoard() {
+		board = new ArrayList<Location>();
 	}
 	
 	public ArrayList<String> createListOfWords() { 
@@ -64,12 +69,29 @@ public class Board {
 	
 	public void gameStart() {
 		redTeamTurn = true;
-		ArrayList<Location> board = createBoard();
-		ArrayList<String> wordList = createListOfWords();
-		ArrayList<String> personList = createListOfPersons();
+		wordList = createListOfWords();
+		personList = createListOfPersons();
 		for(int i = 0; i < 25; i++) {
 			board.get(i).setCodename(wordList.get(i));
 			board.get(i).setPerson(personList.get(i));
 		}
+	}
+	
+	public boolean checkIllegalClue(String clue) {
+		boolean legalClue = true;
+		for(int i = 0; i < 25; i++) {
+			boolean check = board.get(i).isNotRevealed();
+			if(check) {
+				if(clue == board.get(i).getCodename()) {
+					legalClue = false;
+				}
+			}
+		}
+		return legalClue;
+	}
+	
+	public boolean checkGuess(int count) {
+		
+		return true;
 	}
 }
