@@ -99,13 +99,20 @@ public class Board {
 	}
 	
 	public boolean checkGuess() {
+		boolean isTeamAgent = false;
 		setCount(count - 1);
 		for(int i = 0; i < 25; i++) {
 			if(guess == board.get(i).getCodename()) {
-				
+				board.get(i).setNotRevealed(false);
+				if(board.get(i).getPerson() == "blue" && redTeamTurn == false) {
+					isTeamAgent = true;
+				}
+				if(board.get(i).getPerson() == "red" && redTeamTurn == true) {
+					isTeamAgent = true;
+				}
 			}
 		}
-		return true;
+		return isTeamAgent;
 	}
 
 	public boolean isRedTeamTurn() {
