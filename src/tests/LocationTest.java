@@ -13,27 +13,33 @@ public class LocationTest {
 
 	@Test
 	public void testLocation() {
-		fail("Not yet implemented");
+		test = new Location("BOB","IDK");
+		assertEquals("person should be set with this class", "BOB", test.getPerson());
+		assertEquals("codename should be set with this class", "IDK", test.getCodename());
+		assertEquals("notRevealed shou be set to true", true, test.isNotRevealed());
+		
 	}
 	
 	@Test
 	public void testSetPerson() {
-		fail("Not yet implemented");
+		test.setPerson("bob");
+		assertEquals("person should be set with this class", "bob", test.getPerson());
 	}
 	
-	@Test
-	public void testGetPerson() {
-		fail("Not yet implemented");
-	}
+//	@Test
+//	public void testGetPerson() {
+//		fail("Not yet implemented");
+//	}
 	
-	@Test
-	public void testGetCodename() {
-		fail("Not yet implemented");
-	}
+//	@Test
+//	public void testGetCodename() {
+//		fail("Not yet implemented");
+//	}
 	
 	@Test
 	public void testSetCodename() {
-		fail("Not yet implemented");
+		test.setCodename("blue");
+		assertEquals("Codename should be set with this class", "blue", test.getCodename());
 	}
 	
 	@Test
