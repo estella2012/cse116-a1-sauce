@@ -4,8 +4,12 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class LocationTest {
+import code.Location;
 
+public class LocationTest {
+	
+	
+	
 
 	@Test
 	public void testLocation() {

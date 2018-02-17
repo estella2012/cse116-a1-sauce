@@ -16,5 +16,4 @@ public class Location {
 		this.locationType = locType;
 	}
 	
-	//test
 }
