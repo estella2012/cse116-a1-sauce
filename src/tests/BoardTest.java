@@ -79,4 +79,33 @@ public class BoardTest {
 		
 	}
 
+	@Test
+	public void testCreateListOfPersons() {
+		Board bob = new Board();
+		ArrayList<String> list = new ArrayList<String>();
+		list = bob.createListOfPersons();
+		//test list size
+		assertEquals(25, list.size());
+		//test shuffle
+		ArrayList<String> testList = new ArrayList<String>();
+		for (int i = 0; i < 9; i++) {
+			testList.add("red");
+		}
+		for(int i = 0; i < 8; i++) {
+			list.add("blue");
+		}
+		for(int i = 0; i < 7; i++) {
+			list.add("innocent");
+		}
+		list.add("assassin");
+		assertNotEquals(testList, list);
+	}
+	
+	@Test
+	public void testGameStart() {
+		Board bob = new Board();
+		bob.gameStart();
+		assertTrue(bob.isRedTeamTurn());
+		
+	}
 }
