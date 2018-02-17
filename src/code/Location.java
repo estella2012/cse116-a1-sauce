@@ -9,6 +9,7 @@ public class Location {
 	//this is  boolean that indicates whether or not the location has been flipped/revealed
 	private boolean notRevealed;
 	
+	
 	//constructs a new Location and 
 	public Location(String person, String codename) {
 		this.person = person;
@@ -40,5 +41,6 @@ public class Location {
 
 	public void setNotRevealed(boolean notRevealed) {
 		this.notRevealed = notRevealed;
+
 	}
 }
