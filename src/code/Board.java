@@ -23,6 +23,7 @@ public class Board {
 	public ArrayList<String> createList() { 
 		ArrayList<String> list = new ArrayList<String>();
 		ArrayList<String> codenameList = new ArrayList<String>();
+
 		try {
 			String filename = "src/code/words.txt";
 			for (String line : Files.readAllLines(Paths.get(filename))) {
