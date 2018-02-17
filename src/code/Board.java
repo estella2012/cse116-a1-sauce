@@ -17,9 +17,17 @@ public class Board {
 
 	private ArrayList<String> personList;
 	
+	private int count;
+
+	private String guess ;
+	
 	//constructor for Board
 	public Board() {
 		
+	}
+	
+	public void setCount(int x) {
+		count = x;
 	}
 	
 	public void createBoard() {
@@ -68,7 +76,7 @@ public class Board {
 	}
 	
 	public void gameStart() {
-		redTeamTurn = true;
+		setRedTeamTurn(true);
 		wordList = createListOfWords();
 		personList = createListOfPersons();
 		for(int i = 0; i < 25; i++) {
@@ -90,8 +98,21 @@ public class Board {
 		return legalClue;
 	}
 	
-	public boolean checkGuess(int count) {
-		
+	public boolean checkGuess() {
+		setCount(count - 1);
+		for(int i = 0; i < 25; i++) {
+			if(guess == board.get(i).getCodename()) {
+				
+			}
+		}
 		return true;
+	}
+
+	public boolean isRedTeamTurn() {
+		return redTeamTurn;
+	}
+
+	public void setRedTeamTurn(boolean redTeamTurn) {
+		this.redTeamTurn = redTeamTurn;
 	}
 }
