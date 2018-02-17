@@ -6,9 +6,7 @@ import org.junit.Test;
 
 public class LocationTest {
 
-<<<<<<< HEAD
-}
-=======
+
 	@Test
 	public void testLocation() {
 		fail("Not yet implemented");
@@ -25,4 +23,3 @@ public class LocationTest {
 	}
 
 }
->>>>>>> branch 'master' of https://github.com/CSE116-Spring2018/s18semesterproject-a1-sauce.git

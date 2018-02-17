@@ -15,4 +15,6 @@ public class Location {
 	public void setLocationType(String locType) {
 		this.locationType = locType;
 	}
+	
+	//test
 }
