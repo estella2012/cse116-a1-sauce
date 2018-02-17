@@ -5,12 +5,12 @@ import org.junit.Test;
 public class BoardTest {
 	
 	@Test
-	public void createBoard() {
+	public void testCreateBoard() {
 		
 	}
 	
 	@Test
-	public void shuffle() {
+	public void testShuffle() {
 		
 	}
 
