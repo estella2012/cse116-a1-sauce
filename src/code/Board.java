@@ -20,7 +20,7 @@ public class Board {
 		
 	}
 	
-	public List<String> shuffle(List<String> list, Random rnd) { 
+	public List shuffle(List<String> list, Random rnd) { 
 		
 		try {
 			String filename = "src/code/words.txt";
