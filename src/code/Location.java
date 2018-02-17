@@ -17,7 +17,7 @@ public class Location {
 		notRevealed = true;
 	}
 
-	//generic getters/setters for ech variable
+	//generic getters/setters for each variable
 	
 	public String getPerson() {
 		return person;
