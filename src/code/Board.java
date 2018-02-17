@@ -8,7 +8,7 @@ public class Board {
 	}
 	
 	public Location[][] createBoard() {
-		Location[][] board = new Location[][];
+		Location[][] board = new Location[5][5];
 		return null;
 		
 	}
