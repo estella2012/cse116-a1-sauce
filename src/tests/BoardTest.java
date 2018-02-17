@@ -1,9 +1,13 @@
 package tests;
 
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import org.junit.Test;
 
@@ -20,7 +24,8 @@ public class BoardTest {
 	public void testShuffle() {
 		ArrayList<String> list = new ArrayList<String>();
 		ArrayList<String> list2 = new ArrayList<String>(); 
-		list2.add("word"); 
+		//below is Krishna's attempt to create a list that didn't help anyone at all so we will leave it here as a reminder
+		/*	list2.add("word"); 
 		list2.add("chicken"); 
 		list2.add("fried"); 
 		list2.add("vegetable"); 
@@ -44,11 +49,32 @@ public class BoardTest {
 		list2.add("smiley"); 
 		list2.add("isacc"); 
 		list2.add("derek"); 
-		list2.add("ishmam");
+		list2.add("ishmam"); */
+		ArrayList<String> listx = new ArrayList<String>();
+
+		try {
+			String filename = "src/code/words.txt";
+			for (String line : Files.readAllLines(Paths.get(filename))) {
+				listx.add(line);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Board bob = new Board();
 		list = bob.createList();
-		assertTrue(list.size() == 25); 
-		assertFalse()
+		
+		String tester = "AFRICAAGENTAIRALIENALPSAMAZON";
+		String testee = "";
+		
+		for(int i = 0; i < 5; i++) {
+			testee += list.get(i);
+		}
+		System.out.println(testee);
+		
+		assertEquals(25, list.size());
+		assertFalse(tester == testee);
+		//assertTrue(tester == testee);
 		
 		
 	}
