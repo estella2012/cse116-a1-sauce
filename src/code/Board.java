@@ -149,5 +149,4 @@ public class Board {
 		}
 		return winningTeam;
 	}
-
 }
