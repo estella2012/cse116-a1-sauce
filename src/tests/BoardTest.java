@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Collections;
 
 import org.junit.Test;
 
@@ -23,7 +22,6 @@ public class BoardTest {
 	@Test
 	public void testShuffle() {
 		ArrayList<String> list = new ArrayList<String>();
-		ArrayList<String> list2 = new ArrayList<String>(); 
 		//below is Krishna's attempt to create a list that didn't help anyone at all so we will leave it here as a reminder
 		/*	list2.add("word"); 
 		list2.add("chicken"); 
@@ -58,7 +56,6 @@ public class BoardTest {
 				listx.add(line);
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		Board bob = new Board();

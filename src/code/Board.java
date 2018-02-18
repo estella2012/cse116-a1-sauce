@@ -48,7 +48,6 @@ public class Board {
 				codenameList.add(list.get(i));
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
