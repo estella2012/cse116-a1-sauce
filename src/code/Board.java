@@ -138,5 +138,16 @@ public class Board {
 	public void setRedTeamTurn(boolean redTeamTurn) {
 		this.redTeamTurn = redTeamTurn;
 	}
+	
+	public String whichTeamWonAssassin() {
+		String winningTeam;
+		if(redTeamTurn) {
+			winningTeam = "blue";
+		}
+		else {
+			winningTeam = "red";
+		}
+		return winningTeam;
+	}
 
 }
