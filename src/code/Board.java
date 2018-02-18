@@ -9,17 +9,22 @@ import java.util.Collections;
 
 public class Board {
 	
+	//boolean used to keep track of which team's turn it is
 	private boolean redTeamTurn;
-	
+	//the 25 locations
 	private ArrayList<Location> board;
-
+	//the 25 words for each location
 	private ArrayList<String> wordList;
-
+	//the 25 assignments for each location
 	private ArrayList<String> personList;
-	
+	//the number associated with each clue
 	private int count;
-
+	//the word at the location of the guess
 	private String guess ;
+	//an int used to keep track of how many blue locations are left on the board
+	private int bluesLeft;
+	//an int used to keep track of how many blue locations are left on the board
+	private int redsLeft;
 	
 	//constructor for Board
 	public Board() {
@@ -32,12 +37,13 @@ public class Board {
 	
 	public void createBoard() {
 		board = new ArrayList<Location>();
+		redsLeft = 9;
+		bluesLeft = 8;
 	}
 	
 	public ArrayList<String> createListOfWords() { 
 		ArrayList<String> list = new ArrayList<String>();
 		ArrayList<String> codenameList = new ArrayList<String>();
-
 		try {
 			String filename = "src/code/words.txt";
 			for (String line : Files.readAllLines(Paths.get(filename))) {
@@ -49,8 +55,7 @@ public class Board {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-		
+		}		
 		return codenameList;  
 		}
 	
@@ -105,24 +110,25 @@ public class Board {
 				board.get(i).setNotRevealed(false);
 				if(board.get(i).getPerson() == "blue" && redTeamTurn == false) {
 					isTeamAgent = true;
+					bluesLeft = bluesLeft - 1;
 				}
 				if(board.get(i).getPerson() == "red" && redTeamTurn == true) {
 					isTeamAgent = true;
+					redsLeft = redsLeft - 1;
 				}
 			}
 		}
 		return isTeamAgent;
 	}
 	
-	
-	//unfinished/probably broken gameWon code, I'll work on it later. Don't touch it or I'll probably cry. -Derek
 	public boolean gameWon() {
+		boolean gameOver = false;
 		for (int index = 0; index < 25; index++) {
-			if((board.get(index).isNotRevealed() && board.get(index).getPerson() == "blue") && (board.get(index).isNotRevealed() && board.get(index).getPerson() == "red")) {
-				return false;
+			if(redsLeft == 0 || bluesLeft == 0) {
+				return true;
 			}
 		}
-		return redTeamTurn;
+		return gameOver;
 	}
 
 	public boolean isRedTeamTurn() {
@@ -132,4 +138,5 @@ public class Board {
 	public void setRedTeamTurn(boolean redTeamTurn) {
 		this.redTeamTurn = redTeamTurn;
 	}
+
 }
