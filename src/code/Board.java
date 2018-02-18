@@ -113,6 +113,17 @@ public class Board {
 		}
 		return isTeamAgent;
 	}
+	
+	
+	//unfinished/probably broken gameWon code, I'll work on it later. Don't touch it or I'll probably cry. -Derek
+	public boolean gameWon() {
+		for (int index = 0; index < 25; index++) {
+			if((board.get(index).isNotRevealed() && board.get(index).getPerson() == "blue") && (board.get(index).isNotRevealed() && board.get(index).getPerson() == "red")) {
+				return false;
+			}
+		}
+		return redTeamTurn;
+	}
 
 	public boolean isRedTeamTurn() {
 		return redTeamTurn;
