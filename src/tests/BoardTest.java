@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 import code.Board;
+import code.Location;
 
 public class BoardTest {
 	
@@ -103,6 +104,19 @@ public class BoardTest {
 		Board bob = new Board();
 		bob.gameStart();
 		assertTrue(bob.isRedTeamTurn());
+		
+	}
+	
+	@Test
+	public void checkIllegalClueTest() {
+		Board br = new Board();
+		Location nyc = new Location("","food");
+		nyc.getCodename();
+		assertEquals(false, br.checkIllegalClue("food"));
+	}
+	
+	@Test 
+	public void gameWonTest() { 
 		
 	}
 }

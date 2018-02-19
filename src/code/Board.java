@@ -112,7 +112,7 @@ public class Board {
 		for(int i = 0; i < 25; i++) {
 			boolean check = board.get(i).isNotRevealed();
 			if(check) {
-				if(clue == board.get(i).getCodename()) {
+				if(clue.equals(board.get(i).getCodename())) {
 					legalClue = false;
 				}
 			}
