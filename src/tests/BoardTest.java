@@ -7,11 +7,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Collections;
 
 import org.junit.Test;
 
 import code.Board;
+import code.Location;
 
 public class BoardTest {
 	
@@ -23,7 +23,6 @@ public class BoardTest {
 	@Test
 	public void testShuffle() {
 		ArrayList<String> list = new ArrayList<String>();
-		ArrayList<String> list2 = new ArrayList<String>(); 
 		//below is Krishna's attempt to create a list that didn't help anyone at all so we will leave it here as a reminder
 		/*	list2.add("word"); 
 		list2.add("chicken"); 
@@ -53,12 +52,11 @@ public class BoardTest {
 		ArrayList<String> listx = new ArrayList<String>();
 
 		try {
-			String filename = "src/code/words.txt";
+			String filename = "src/GameWords.txt";
 			for (String line : Files.readAllLines(Paths.get(filename))) {
 				listx.add(line);
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		Board bob = new Board();
@@ -70,13 +68,53 @@ public class BoardTest {
 		for(int i = 0; i < 5; i++) {
 			testee += list.get(i);
 		}
-		System.out.println(testee);
 		
 		assertEquals(25, list.size());
 		assertFalse(tester == testee);
 		//assertTrue(tester == testee);
-		
-		
 	}
 
+	@Test
+	public void testCreateListOfPersons() {
+		Board bob = new Board();
+		ArrayList<String> list = new ArrayList<String>();
+		list = bob.createListOfPersons();
+		//test list size
+		assertEquals(25, list.size());
+		//test shuffle
+		ArrayList<String> testList = new ArrayList<String>();
+		for (int i = 0; i < 9; i++) {
+			testList.add("red");
+		}
+		for(int i = 0; i < 8; i++) {
+			list.add("blue");
+		}
+		for(int i = 0; i < 7; i++) {
+			list.add("innocent");
+		}
+		list.add("assassin");
+		assertNotEquals(testList, list);
+	}
+	
+	@Test
+	public void testGameStart() {
+		Board bob = new Board();
+		bob.createBoard();
+		bob.gameStart();
+		assertTrue(bob.isRedTeamTurn());
+		
+	}
+	
+	@Test
+	public void checkIllegalClueTest() {
+		Board br = new Board();
+		br.createBoard();
+		br.gameStart();
+		assertFalse(br.checkIllegalClue("number"));
+	}
+	
+	@Test 
+	public void gameWonTest() { 
+		
+	}
 }

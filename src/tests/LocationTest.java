@@ -16,7 +16,7 @@ public class LocationTest {
 		test = new Location("BOB","IDK");
 		assertEquals("person should be set with this class", "BOB", test.getPerson());
 		assertEquals("codename should be set with this class", "IDK", test.getCodename());
-		assertEquals("notRevealed shou be set to true", true, test.isNotRevealed());
+		assertEquals("notRevealed should be set to true", true, test.isNotRevealed());
 		
 	}
 	
