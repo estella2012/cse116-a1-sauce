@@ -19,6 +19,10 @@ public class Location {
 
 	//generic getters/setters for each variable
 	
+	public Location() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getPerson() {
 		return person;
 	}

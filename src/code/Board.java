@@ -12,7 +12,7 @@ public class Board {
 	//boolean used to keep track of which team's turn it is
 	private boolean redTeamTurn;
 	//the 25 locations
-	private ArrayList<Location> board;
+	private Location[] board;
 	//the 25 words for each location
 	private ArrayList<String> wordList;
 	//the 25 assignments for each location
@@ -38,7 +38,10 @@ public class Board {
 	 * Initiate the the board and the number of words left for both teams
 	 */
 	public void createBoard() {
-		board = new ArrayList<Location>();
+		board = new Location[25];
+		for(int index = 0; index < 25; index++) {
+			board[index] = new Location();
+		}
 		redsLeft = 9;
 		bluesLeft = 8;
 	}
@@ -99,8 +102,8 @@ public class Board {
 		personList = createListOfPersons();
 		createBoard();
 		for(int i = 0; i < 25; i++) {
-			board.get(i).setCodename(wordList.get(i));
-			board.get(i).setPerson(personList.get(i));
+			board[i].setCodename(wordList.get(i));
+			board[i].setPerson(personList.get(i));
 		}
 	}
 	
@@ -111,9 +114,9 @@ public class Board {
 	public boolean checkIllegalClue(String clue) {
 		boolean legalClue = true;
 		for(int i = 0; i < 25; i++) {
-			boolean check = board.get(i).isNotRevealed();
+			boolean check = board[i].isNotRevealed();
 			if(check) {
-				if(clue.equals(board.get(i).getCodename())) {
+				if(clue.equals(board[i].getCodename())) {
 					legalClue = false;
 				}
 			}
@@ -129,13 +132,13 @@ public class Board {
 		boolean isTeamAgent = false;
 		setCount(count - 1);
 		for(int i = 0; i < 25; i++) {
-			if(guess.equals(board.get(i).getCodename())) {
-				board.get(i).setNotRevealed(false);
-				if(board.get(i).getPerson().equals("blue") && redTeamTurn == false) {
+			if(guess.equals(board[i].getCodename())) {
+				board[i].setNotRevealed(false);
+				if(board[i].getPerson().equals("blue") && redTeamTurn == false) {
 					isTeamAgent = true;
 					bluesLeft = bluesLeft - 1;
 				}
-				if(board.get(i).getPerson().equals("red") && redTeamTurn == true) {
+				if(board[i].getPerson().equals("red") && redTeamTurn == true) {
 					isTeamAgent = true;
 					redsLeft = redsLeft - 1;
 				}
