@@ -110,7 +110,7 @@ public class BoardTest {
 		Board br = new Board();
 		br.createBoard();
 		br.gameStart();
-		assertFalse(br.checkIllegalClue("number"));
+		assertTrue(br.checkIllegalClue("number"));
 	}
 	
 	@Test 

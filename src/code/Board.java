@@ -114,11 +114,10 @@ public class Board {
 	public boolean checkIllegalClue(String clue) {
 		boolean legalClue = true;
 		for(int i = 0; i < 25; i++) {
-			boolean check = board[i].isNotRevealed();
-			if(check) {
 				if(clue.equals(board[i].getCodename())) {
-					legalClue = false;
-				}
+					if(board[i].isNotRevealed()) {
+					return false;
+					}
 			}
 		}
 		return legalClue;
