@@ -52,7 +52,7 @@ public class BoardTest {
 		ArrayList<String> listx = new ArrayList<String>();
 
 		try {
-			String filename = "src/code/words.txt";
+			String filename = "src/GameWords.txt";
 			for (String line : Files.readAllLines(Paths.get(filename))) {
 				listx.add(line);
 			}
@@ -68,7 +68,6 @@ public class BoardTest {
 		for(int i = 0; i < 5; i++) {
 			testee += list.get(i);
 		}
-		System.out.println(testee);
 		
 		assertEquals(25, list.size());
 		assertFalse(tester == testee);
@@ -100,6 +99,7 @@ public class BoardTest {
 	@Test
 	public void testGameStart() {
 		Board bob = new Board();
+		bob.createBoard();
 		bob.gameStart();
 		assertTrue(bob.isRedTeamTurn());
 		
@@ -110,7 +110,7 @@ public class BoardTest {
 		Board br = new Board();
 		br.createBoard();
 		br.gameStart();
-		assertEquals(false, br.checkIllegalClue("number"));
+		assertFalse(br.checkIllegalClue("number"));
 	}
 	
 	@Test 
