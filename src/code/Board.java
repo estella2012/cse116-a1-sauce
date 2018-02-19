@@ -79,6 +79,7 @@ public class Board {
 		setRedTeamTurn(true);
 		wordList = createListOfWords();
 		personList = createListOfPersons();
+		createBoard();
 		for(int i = 0; i < 25; i++) {
 			board.get(i).setCodename(wordList.get(i));
 			board.get(i).setPerson(personList.get(i));
