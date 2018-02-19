@@ -73,8 +73,6 @@ public class BoardTest {
 		assertEquals(25, list.size());
 		assertFalse(tester == testee);
 		//assertTrue(tester == testee);
-		
-		
 	}
 
 	@Test
@@ -110,9 +108,9 @@ public class BoardTest {
 	@Test
 	public void checkIllegalClueTest() {
 		Board br = new Board();
-		Location nyc = new Location("","food");
-		nyc.getCodename();
-		assertEquals(false, br.checkIllegalClue("food"));
+		br.createBoard();
+		br.gameStart();
+		assertEquals(false, br.checkIllegalClue("number"));
 	}
 	
 	@Test 

@@ -50,7 +50,7 @@ public class Board {
 		ArrayList<String> list = new ArrayList<String>();
 		ArrayList<String> codenameList = new ArrayList<String>();
 		try {
-			String filename = "src/code/words.txt";
+			String filename = "src/GameWords.txt";
 			for (String line : Files.readAllLines(Paths.get(filename))) {
 				list.add(line);
 			}
