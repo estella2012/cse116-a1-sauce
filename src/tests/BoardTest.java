@@ -117,5 +117,6 @@ public class BoardTest {
 	public void gameWonTest() { 
 		
 	}
-	// need to add checkGuess, Setredteamturn, wichteamwonassasin
+	// need to add tests for checkGuess, Setredteamturn, whichteamwonassasin
+	// also fix methods CheckIllegalClue and gameStart
 }
