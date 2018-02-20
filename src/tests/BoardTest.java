@@ -116,6 +116,51 @@ public class BoardTest {
 	public void gameWonTest() { 
 		
 	}
-	// need to add tests for checkGuess, Setredteamturn, whichteamwonassasin
+	
+	@Test
+	public void testSetRedTeamTurn() {
+		Board br = new Board();
+		br.createBoard();
+		br.gameStart();
+		assertTrue(br.isRedTeamTurn());
+		br.setRedTeamTurn(false);
+		assertFalse(br.isRedTeamTurn());
+		br.setRedTeamTurn(true);
+		assertTrue(br.isRedTeamTurn());
+	}
+	
+	@Test
+	public void testWhichTeamWonAssassin() {
+		Board br = new Board();
+		br.createBoard();
+		br.gameStart();
+		assertEquals("blue", br.whichTeamWonAssassin());
+		br.setRedTeamTurn(false);
+		assertEquals("red", br.whichTeamWonAssassin());
+	}
+	
+	@Test
+	public void gameStartTest() {
+		Board br = new Board();
+		br.createBoard();
+		br.gameStart();
+		for(int index = 0; index < 25; index++) {
+			assertNotNull(br.getBoard()[index].getCodename());
+			assertNotNull(br.getBoard()[index].getPerson());
+			assertFalse(br.getBoard()[index].isNotRevealed());
+		}
+	}
+	
+	@Test
+	public void createBoardTest() {
+		Board br = new Board();
+		br.createBoard();
+		assertEquals(25, br.getBoard().length);
+		assertEquals(9, br.getRedsLeft());
+		assertEquals(8, br.getBluesLeft());
+	}
+	// need to add tests for checkGuess and gameWon
+	// there's also some new basic getters/setters that we can add tests for if we'd like
+	// I added a lot of stuff into checkGuess, updated comment to reflect
 	// also fix methods CheckIllegalClue and gameStart 
 }

@@ -38,12 +38,12 @@ public class Board {
 	 * Initiate the the board and the number of words left for both teams
 	 */
 	public void createBoard() {
-		board = new Location[25];
+		setBoard(new Location[25]);
 		for(int index = 0; index < 25; index++) {
-			board[index] = new Location();
+			getBoard()[index] = new Location();
 		}
-		redsLeft = 9;
-		bluesLeft = 8;
+		setRedsLeft(9);
+		setBluesLeft(8);
 	}
 	
 	/*
@@ -102,8 +102,8 @@ public class Board {
 		personList = createListOfPersons();
 		createBoard();
 		for(int i = 0; i < 25; i++) {
-			board[i].setCodename(wordList.get(i));
-			board[i].setPerson(personList.get(i));
+			getBoard()[i].setCodename(wordList.get(i));
+			getBoard()[i].setPerson(personList.get(i));
 		}
 	}
 	
@@ -115,8 +115,8 @@ public class Board {
 		boolean illegalClue = false;
 		String fixedClue = clue.toUpperCase();
 		for(int i = 0; i < 25; i++) {
-				if(fixedClue.equals(board[i].getCodename())) {
-					if(board[i].isNotRevealed()) {
+				if(fixedClue.equals(getBoard()[i].getCodename())) {
+					if(getBoard()[i].isNotRevealed()) {
 					return true;
 					}
 			}
@@ -125,22 +125,44 @@ public class Board {
 	}
 	
 	/*
-	 * Check if the team's guess is right. If right, make the word revealed, 
-	 * and reduce the number of word left for that team by 1.
+	 * Reveals spot on board and checks if the team's guess is right. 
+	 * If right, returns that it was the team's agent. 
+	 * If wrong (other team, innocent, or assassin), returns that it was not the team's agent.
+	 * If the guess belongs to either team, it reduces the amount of that color by 1.
+	 * If the team guesses the assassin, runs whichTeamWonAssassin. 
 	 */
 	public boolean checkGuess() {
 		boolean isTeamAgent = false;
 		setCount(count - 1);
 		for(int i = 0; i < 25; i++) {
-			if(guess.equals(board[i].getCodename())) {
-				board[i].setNotRevealed(false);
-				if(board[i].getPerson().equals("blue") && redTeamTurn == false) {
+			if(guess.equals(getBoard()[i].getCodename())) {
+				getBoard()[i].setNotRevealed(false);
+				if(getBoard()[i].getPerson().equals("blue") && redTeamTurn == false) {
 					isTeamAgent = true;
-					bluesLeft = bluesLeft - 1;
+					setBluesLeft(getBluesLeft() - 1);
+					return isTeamAgent;
 				}
-				if(board[i].getPerson().equals("red") && redTeamTurn == true) {
+				if(getBoard()[i].getPerson().equals("red") && redTeamTurn == false) {
+					isTeamAgent = false;
+					setRedsLeft(getRedsLeft() - 1);
+					return isTeamAgent;
+				}
+				if(getBoard()[i].getPerson().equals("blue") && redTeamTurn == true) {
+					isTeamAgent = false;
+					setBluesLeft(getBluesLeft() - 1);
+					return isTeamAgent;
+				}
+				if(getBoard()[i].getPerson().equals("red") && redTeamTurn == true) {
 					isTeamAgent = true;
-					redsLeft = redsLeft - 1;
+					setRedsLeft(getRedsLeft() - 1);
+					return isTeamAgent;
+				}
+				if(getBoard()[i].getPerson().equals("innocent")) {
+					return false;
+				}
+				if(getBoard()[i].getPerson().equals("assassin")) {
+					whichTeamWonAssassin(); //I think this line is something we'll need to work with when we create a GUI but for now it can't do much
+					return false;
 				}
 			}
 		}
@@ -153,7 +175,7 @@ public class Board {
 	public boolean gameWon() {
 		boolean gameOver = false;
 		for (int index = 0; index < 25; index++) {
-			if(redsLeft == 0 || bluesLeft == 0) {
+			if(getRedsLeft() == 0 || getBluesLeft() == 0) {
 				return true;
 			}
 		}
@@ -169,7 +191,7 @@ public class Board {
 	}
 	
 	public String whichTeamWonAssassin() {
-		String winningTeam = "no one won";
+		String winningTeam;
 		if(redTeamTurn) {
 			winningTeam = "blue";
 		}
@@ -177,5 +199,29 @@ public class Board {
 			winningTeam = "red";
 		}
 		return winningTeam;
+	}
+
+	public Location[] getBoard() {
+		return board;
+	}
+
+	public void setBoard(Location[] board) {
+		this.board = board;
+	}
+
+	public int getRedsLeft() {
+		return redsLeft;
+	}
+
+	public void setRedsLeft(int redsLeft) {
+		this.redsLeft = redsLeft;
+	}
+
+	public int getBluesLeft() {
+		return bluesLeft;
+	}
+
+	public void setBluesLeft(int bluesLeft) {
+		this.bluesLeft = bluesLeft;
 	}
 }

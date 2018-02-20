@@ -10,7 +10,7 @@ public class Location {
 	private boolean notRevealed;
 	
 	
-	//constructs a new Location and 
+	//constructs a new Location
 	public Location(String person, String codename) {
 		this.person = person;
 		this.codename = codename;
