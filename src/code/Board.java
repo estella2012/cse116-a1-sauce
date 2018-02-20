@@ -112,16 +112,16 @@ public class Board {
 	 * is not a legal clue
 	 */
 	public boolean checkIllegalClue(String clue) {
-		boolean legalClue = true;
+		boolean illegalClue = false;
+		String fixedClue = clue.toUpperCase();
 		for(int i = 0; i < 25; i++) {
-			boolean check = board[i].isNotRevealed();
-			if(check) {
-				if(clue.equals(board[i].getCodename())) {
-					legalClue = false;
-				}
+				if(fixedClue.equals(board[i].getCodename())) {
+					if(board[i].isNotRevealed()) {
+					return true;
+					}
 			}
 		}
-		return legalClue;
+		return illegalClue;
 	}
 	
 	/*

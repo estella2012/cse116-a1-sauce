@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 import code.Board;
-import code.Location;
 
 public class BoardTest {
 	
@@ -71,7 +70,6 @@ public class BoardTest {
 		
 		assertEquals(25, list.size());
 		assertFalse(tester == testee);
-		//assertTrue(tester == testee);
 	}
 
 	@Test
@@ -111,6 +109,7 @@ public class BoardTest {
 		br.createBoard();
 		br.gameStart();
 		assertFalse(br.checkIllegalClue("number"));
+		//need to find a way to check when the clue should be illegal and return true
 	}
 	
 	@Test 
