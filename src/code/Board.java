@@ -41,6 +41,7 @@ public class Board {
 		setBoard(new Location[25]);
 		for(int index = 0; index < 25; index++) {
 			getBoard()[index] = new Location();
+			getBoard()[index].setNotRevealed(true);
 		}
 		setRedsLeft(9);
 		setBluesLeft(8);

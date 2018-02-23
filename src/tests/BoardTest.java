@@ -149,7 +149,7 @@ public class BoardTest {
 			assertNotNull(br.getBoard()[index].getCodename());
 			assertNotNull(br.getBoard()[index].getPerson());
 			assertTrue(br.isRedTeamTurn());
-			assertFalse(br.getBoard()[index].isNotRevealed());
+			assertTrue(br.getBoard()[index].isNotRevealed());
 		}
 	}
 	
