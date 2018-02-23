@@ -109,6 +109,7 @@ public class BoardTest {
 		br.createBoard();
 		br.gameStart();
 		assertFalse(br.checkIllegalClue("number"));
+//		assertTrue(br.checkIllegalClue(br.getBoard()[0].getCodename()));
 		//need to find a way to check when the clue should be illegal and return true
 	}
 	
@@ -147,6 +148,7 @@ public class BoardTest {
 		for(int index = 0; index < 25; index++) {
 			assertNotNull(br.getBoard()[index].getCodename());
 			assertNotNull(br.getBoard()[index].getPerson());
+			assertTrue(br.isRedTeamTurn());
 			assertFalse(br.getBoard()[index].isNotRevealed());
 		}
 	}
