@@ -141,7 +141,7 @@ public class Board {
 	 * If the team guesses the assassin, runs whichTeamWonAssassin. 
 	 */
 	public boolean checkGuess() {
-		boolean isTeamAgent = false;
+		boolean isTeamAgent = true;
 		setCount(count - 1);
 		for(int i = 0; i < 25; i++) {
 			if(guess.equals(getBoard()[i].getCodename())) {

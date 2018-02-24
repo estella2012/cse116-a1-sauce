@@ -166,14 +166,14 @@ public class BoardTest {
 	@Test
 	public void checkGuessTest() {
 		Board br = new Board();
-		Location loc = new Location();
 		br.createBoard();
+		br.getBoard()[3].setCodename("");
+		br.getBoard()[3].setPerson("blue");
 		br.gameStart("src/GameWords.txt");
 		br.setGuess("");
-		loc.setCodename("");
-		loc.setPerson("blue");
 		br.setRedTeamTurn(false);
-		assertTrue(br.checkGuess());
+		assertEquals(true, br.checkGuess());
+		
 		
 	}
 	// need to add tests for checkGuess and gameWon
