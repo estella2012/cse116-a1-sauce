@@ -11,7 +11,7 @@ Creates List containing 25 distinct codenames selected at random [10 points] (hi
 createListOfPersons in Board and testCreateListOfPersons in BoardTest
 
 Creates List containing randomly generated assignments for each of the 9 Red Agents, 8 Blue Agents, 7 Innocent Bystanders, and 1 Assassin [10 points] (hint: Java has some methods that could be a starting point for how to randomly order locations)
-gameStart in Board, gameStartTest in BoardTest
+assignPerson in Board, gameStartTest in BoardTest
 
 When game started, it is Red team's move and each of Board's 25 Location instances is assigned a codename, Person, and is Not Revealed [15 points]
 gameStart in Board, gameStartTest in BoardTest
@@ -20,10 +20,10 @@ Method defined which correctly returns if a clue is legal or illegal (clues cann
 checkIllegalClue in Board, checkIllegalClueTest in BoardTest
 
 Method defined which decrements the count, updates a Location when the Location's codename was selected, and returns if the Location contained the current team's Agent [10 points]
-checkGuess in Board, NEED TEST!!
+checkGuess in Board, checkGuessTest in BoardTest
 
 Method defined which correctly returns whether or not the Board is in one of the winning states [15 points]
-gameWon in Board, NEED TEST!!
+gameWon in Board, gameWonTest in BoardTest
 
 Method defined which correctly returns which team did not lose (i.e., win) when the Assassin was revealed [10 points]
 whichTeamWonAssassin in Board, testWhichTeamWonAssassin in BoardTest
