@@ -171,7 +171,7 @@ public class BoardTest {
 		br.getBoard()[3].setCodename("");
 		br.getBoard()[3].setPerson("blue");
 		br.setRedTeamTurn(false);
-		assertEquals(true, br.checkGuess(""));
+		assertTrue(br.checkGuess(""));
 		
 		
 	}
