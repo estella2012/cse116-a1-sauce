@@ -177,6 +177,26 @@ public class BoardTest {
 		br.getBoard()[3].setPerson("blue");
 		br.setRedTeamTurn(false);
 		assertTrue(br.checkGuess(""));
+		br.getBoard()[4].setCodename("food");
+		br.getBoard()[4].setPerson("red");
+		br.setRedTeamTurn(false);
+		assertFalse(br.checkGuess("car")); 
+		br.getBoard()[5].setCodename("boolean");
+		br.getBoard()[5].setPerson("red");
+		br.setRedTeamTurn(false);
+		assertFalse(br.checkGuess("boolean"));
+		br.getBoard()[3].setCodename("bigMac");
+		br.getBoard()[3].setPerson("blue");
+		br.setRedTeamTurn(true);
+		assertFalse(br.checkGuess("bigMac"));
+		br.getBoard()[3].setCodename("");
+		br.getBoard()[3].setPerson("red");
+		br.setRedTeamTurn(true);
+		assertTrue(br.checkGuess("")); 
+		br.getBoard()[3].setPerson("innocent");
+		assertFalse(br.checkGuess(""));
+	    br.getBoard()[2].setPerson("assasin");
+	    assertFalse(br.checkGuess("")); 
 		
 		
 	}
