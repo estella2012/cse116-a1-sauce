@@ -1,4 +1,4 @@
-Submission includes an updated tests.txt file listsing the class and method name of the test defined for each of these requirements [2 points]
+Submission includes an updated tests.txt file listing the class and method name of the test defined for each of these requirements [2 points]
 This file!
 
 Defines a Board class contains 25 Location instances [6 points]
@@ -11,7 +11,7 @@ Creates List containing 25 distinct codenames selected at random [10 points] (hi
 createListOfPersons in Board and testCreateListOfPersons in BoardTest
 
 Creates List containing randomly generated assignments for each of the 9 Red Agents, 8 Blue Agents, 7 Innocent Bystanders, and 1 Assassin [10 points] (hint: Java has some methods that could be a starting point for how to randomly order locations)
-assignPerson in Board, gameStartTest in BoardTest
+assignPerson in Board, no test because it just runs methods we've already tested
 
 When game started, it is Red team's move and each of Board's 25 Location instances is assigned a codename, Person, and is Not Revealed [15 points]
 gameStart in Board, gameStartTest in BoardTest
