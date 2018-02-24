@@ -97,10 +97,17 @@ public class Board {
 	/*
 	 * Initiate everything to begin the game.
 	 * Red team will be the first to go.
-	 * Create a list of random words, a list of random persons, and assign them to the board.
 	 */
 	public void gameStart(String filename) {
 		setRedTeamTurn(true);
+		assignPeople(filename);
+	}
+	
+	/*
+	 * Create a list of random words, a list of random persons, and assign them to the board.
+	 */
+	
+	public void assignPeople(String filename) {
 		wordList = createListOfWords(filename);
 		personList = createListOfPersons();
 		createBoard();
