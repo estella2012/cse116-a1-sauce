@@ -28,6 +28,8 @@ public class Board {
 	
 	//constructor for Board
 	public Board() {
+		wordList = new ArrayList<>();
+		personList = new ArrayList<>();
 	}
 	
 	public void setCount(int x) {
@@ -50,11 +52,11 @@ public class Board {
 	/*
 	 * Shuffle all the words in the text file and pick the first 25 in to the game play
 	 */
-	public ArrayList<String> createListOfWords() { 
+	public ArrayList<String> createListOfWords(String filename) { 
 		ArrayList<String> list = new ArrayList<String>();
 		ArrayList<String> codenameList = new ArrayList<String>();
 		try {
-			String filename = "src/GameWords.txt";
+//			String filename = "src/GameWords.txt";
 			for (String line : Files.readAllLines(Paths.get(filename))) {
 				list.add(line);
 			}
@@ -97,9 +99,9 @@ public class Board {
 	 * Red team will be the first to go.
 	 * Create a list of random words, a list of random persons, and assign them to the board.
 	 */
-	public void gameStart() {
+	public void gameStart(String filename) {
 		setRedTeamTurn(true);
-		wordList = createListOfWords();
+		wordList = createListOfWords(filename);
 		personList = createListOfPersons();
 		createBoard();
 		for(int i = 0; i < 25; i++) {
@@ -224,5 +226,11 @@ public class Board {
 
 	public void setBluesLeft(int bluesLeft) {
 		this.bluesLeft = bluesLeft;
+	}
+	public String getGuess() {
+		return guess;
+	}
+	public void setGuess(String yourGuess) {
+		guess = yourGuess;
 	}
 }
