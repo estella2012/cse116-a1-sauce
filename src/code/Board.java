@@ -201,6 +201,9 @@ public class Board {
 		this.redTeamTurn = redTeamTurn;
 	}
 	
+	/*
+	 * When the assassin is chosen, checks whose turn it is and returns whose team won as a result. 
+	 */
 	public String whichTeamWonAssassin() {
 		String winningTeam;
 		if(redTeamTurn) {

@@ -14,11 +14,9 @@ import code.Board;
 
 public class BoardTest {
 	
-	@Test
-	public void testCreateBoard() {
-		
-	}
-	
+	/*
+	 * Tests that createListOfWords picks 25 random words from the list.
+	 */
 	@Test
 	public void testShuffle() {
 		ArrayList<String> list = new ArrayList<String>();
@@ -71,7 +69,10 @@ public class BoardTest {
 		assertEquals(25, list.size());
 		assertFalse(tester == testee);
 	}
-
+	
+	/*
+	 * Checks that createListOfPersons makes a randomized list of assignments.
+	 */
 	@Test
 	public void testCreateListOfPersons() {
 		Board bob = new Board();
@@ -94,6 +95,9 @@ public class BoardTest {
 		assertNotEquals(testList, list);
 	}
 	
+	/*
+	 * Checks that gameStart sets the turn correctly.
+	 */
 	@Test
 	public void testGameStart() {
 		Board bob = new Board();
@@ -103,6 +107,9 @@ public class BoardTest {
 		
 	}
 	
+	/*
+	 * Checks if checkIllegalClue can properly determine whether or not a clue is legal.
+	 */
 	@Test
 	public void checkIllegalClueTest() {
 		Board br = new Board();
@@ -113,6 +120,9 @@ public class BoardTest {
 		//need to find a way to check when the clue should be illegal and return true
 	}
 	
+	/*
+	 * Tests that gameWon can determine if the board is in a winning state.
+	 */
 	@Test 
 	public void gameWonTest() { 
 		Board br = new Board();
@@ -123,6 +133,9 @@ public class BoardTest {
 		assertTrue(br.gameWon());
 	}
 	
+	/*
+	 * Tests that the turn can change.
+	 */
 	@Test
 	public void testSetRedTeamTurn() {
 		Board br = new Board();
@@ -135,6 +148,9 @@ public class BoardTest {
 		assertTrue(br.isRedTeamTurn());
 	}
 	
+	/*
+	 * Checks that whichTeamWonAssassin will return the proper team in the case of the Assassin being chosen.
+	 */
 	@Test
 	public void testWhichTeamWonAssassin() {
 		Board br = new Board();
@@ -145,6 +161,9 @@ public class BoardTest {
 		assertEquals("red", br.whichTeamWonAssassin());
 	}
 	
+	/*
+	 * Checks that gameStart properly runs the methods it uses.
+	 */
 	@Test
 	public void gameStartTest() {
 		Board br = new Board();
@@ -158,6 +177,9 @@ public class BoardTest {
 		}
 	}
 	
+	/*
+	 * Checks that createBoard makes a board of 25 locations with the right amount of agents.
+	 */
 	@Test
 	public void createBoardTest() {
 		Board br = new Board();
@@ -167,6 +189,9 @@ public class BoardTest {
 		assertEquals(8, br.getBluesLeft());
 	}
 	
+	/*
+	 * Checks that checkGuess returns the proper value in all potential cases. 
+	 */
 	@Test
 	public void checkGuessTest() {
 		Board br = new Board();
