@@ -116,7 +116,12 @@ public class BoardTest {
 	
 	@Test 
 	public void gameWonTest() { 
-		
+		Board br = new Board();
+		br.gameStart("src/GameWords.txt");
+		assertFalse(br.gameWon());
+		br.setBluesLeft(5);
+		br.setRedsLeft(0);
+		assertTrue(br.gameWon());
 	}
 	
 	@Test
