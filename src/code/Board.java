@@ -106,7 +106,6 @@ public class Board {
 	/*
 	 * Create a list of random words, a list of random persons, and assign them to the board.
 	 */
-	
 	public void assignPeople(String filename) {
 		wordList = createListOfWords(filename);
 		personList = createListOfPersons();
@@ -178,6 +177,7 @@ public class Board {
 		}
 		return isTeamAgent;
 	}
+	
 	
 	/*
 	 * If one of the team's word left turn to zero, stop the game.

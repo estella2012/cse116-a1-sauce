@@ -172,6 +172,7 @@ public class BoardTest {
 		br.setGuess("");
 		loc.setCodename("");
 		loc.setPerson("blue");
+		br.setRedTeamTurn(false);
 		assertTrue(br.checkGuess());
 		
 	}
