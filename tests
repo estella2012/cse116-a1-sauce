@@ -20,7 +20,7 @@ Method defined which correctly returns if a clue is legal or illegal (clues cann
 checkIllegalClue in Board, checkIllegalClueTest in BoardTest
 
 Method defined which decrements the count, updates a Location when the Location's codename was selected, and returns if the Location contained the current team's Agent [10 points]
-checkGuess in Board, test in progress
+checkGuess in Board, checkGuessTest in BoardTest
 
 Method defined which correctly returns whether or not the Board is in one of the winning states [15 points]
 gameWon in Board, gameWonTest in BoardTest
