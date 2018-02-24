@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 import code.Board;
-import code.Location;
 
 public class BoardTest {
 	
@@ -198,10 +197,7 @@ public class BoardTest {
 	    br.getBoard()[2].setPerson("assasin");
 	    assertFalse(br.checkGuess("")); 
 		
-		
 	}
-	// need to add tests for checkGuess and gameWon
-	// there's also some new basic getters/setters that we can add tests for if we'd like
-	// I added a lot of stuff into checkGuess, updated comment to reflect
-	// also fix methods CheckIllegalClue and gameStart 
+	
+	// Do not need a test for assignPeople as those methods within it have already been tested elsewhere.
 }
