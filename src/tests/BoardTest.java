@@ -59,7 +59,7 @@ public class BoardTest {
 			e.printStackTrace();
 		}
 		Board bob = new Board();
-		list = bob.createListOfWords();
+		list = bob.createListOfWords("src/GameWords.txt");
 		
 		String tester = "AFRICAAGENTAIRALIENALPSAMAZON";
 		String testee = "";
@@ -98,7 +98,7 @@ public class BoardTest {
 	public void testGameStart() {
 		Board bob = new Board();
 		bob.createBoard();
-		bob.gameStart();
+		bob.gameStart("src/GameWords.txt");
 		assertTrue(bob.isRedTeamTurn());
 		
 	}
@@ -107,7 +107,7 @@ public class BoardTest {
 	public void checkIllegalClueTest() {
 		Board br = new Board();
 		br.createBoard();
-		br.gameStart();
+		br.gameStart("src/GameWords.txt");
 		assertFalse(br.checkIllegalClue("number"));
 //		assertTrue(br.checkIllegalClue(br.getBoard()[0].getCodename()));
 		//need to find a way to check when the clue should be illegal and return true
@@ -122,7 +122,7 @@ public class BoardTest {
 	public void testSetRedTeamTurn() {
 		Board br = new Board();
 		br.createBoard();
-		br.gameStart();
+		br.gameStart("src/GameWords.txt");
 		assertTrue(br.isRedTeamTurn());
 		br.setRedTeamTurn(false);
 		assertFalse(br.isRedTeamTurn());
@@ -134,7 +134,7 @@ public class BoardTest {
 	public void testWhichTeamWonAssassin() {
 		Board br = new Board();
 		br.createBoard();
-		br.gameStart();
+		br.gameStart("src/GameWords.txt");
 		assertEquals("blue", br.whichTeamWonAssassin());
 		br.setRedTeamTurn(false);
 		assertEquals("red", br.whichTeamWonAssassin());
@@ -144,7 +144,7 @@ public class BoardTest {
 	public void gameStartTest() {
 		Board br = new Board();
 		br.createBoard();
-		br.gameStart();
+		br.gameStart("src/GameWords.txt");
 		for(int index = 0; index < 25; index++) {
 			assertNotNull(br.getBoard()[index].getCodename());
 			assertNotNull(br.getBoard()[index].getPerson());
