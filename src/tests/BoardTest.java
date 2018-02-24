@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 import code.Board;
+import code.Location;
 
 public class BoardTest {
 	
@@ -160,6 +161,19 @@ public class BoardTest {
 		assertEquals(25, br.getBoard().length);
 		assertEquals(9, br.getRedsLeft());
 		assertEquals(8, br.getBluesLeft());
+	}
+	
+	@Test
+	public void checkGuessTest() {
+		Board br = new Board();
+		Location loc = new Location();
+		br.createBoard();
+		br.gameStart("src/GameWords.txt");
+		br.setGuess("");
+		loc.setCodename("");
+		loc.setPerson("blue");
+		assertTrue(br.checkGuess());
+		
 	}
 	// need to add tests for checkGuess and gameWon
 	// there's also some new basic getters/setters that we can add tests for if we'd like
