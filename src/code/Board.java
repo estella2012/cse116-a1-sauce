@@ -140,9 +140,10 @@ public class Board {
 	 * If the guess belongs to either team, it reduces the amount of that color by 1.
 	 * If the team guesses the assassin, runs whichTeamWonAssassin. 
 	 */
-	public boolean checkGuess() {
-		boolean isTeamAgent = true;
+	public boolean checkGuess(String guess) {
+		boolean isTeamAgent = false;
 		setCount(count - 1);
+		setGuess(guess);
 		for(int i = 0; i < 25; i++) {
 			if(guess.equals(getBoard()[i].getCodename())) {
 				getBoard()[i].setNotRevealed(false);

@@ -172,12 +172,11 @@ public class BoardTest {
 	public void checkGuessTest() {
 		Board br = new Board();
 		br.createBoard();
+		br.gameStart("src/GameWords.txt");
 		br.getBoard()[3].setCodename("");
 		br.getBoard()[3].setPerson("blue");
-		br.gameStart("src/GameWords.txt");
-		br.setGuess("");
 		br.setRedTeamTurn(false);
-		assertEquals(true, br.checkGuess());
+		assertTrue(br.checkGuess(""));
 		
 		
 	}
