@@ -19,7 +19,6 @@ public class BoardTest {
 	 */
 	@Test
 	public void testShuffle() {
-		ArrayList<String> list = new ArrayList<String>();
 		//below is Krishna's attempt to create a list that didn't help anyone at all so we will leave it here as a reminder
 		/*	list2.add("word"); 
 		list2.add("chicken"); 
@@ -46,16 +45,9 @@ public class BoardTest {
 		list2.add("isacc"); 
 		list2.add("derek"); 
 		list2.add("ishmam"); */
-		ArrayList<String> listx = new ArrayList<String>();
+		
 
-		try {
-			String filename = "src/GameWords.txt";
-			for (String line : Files.readAllLines(Paths.get(filename))) {
-				listx.add(line);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		ArrayList<String> list = new ArrayList<String>();
 		Board bob = new Board();
 		list = bob.createListOfWords("src/GameWords.txt");
 		
@@ -67,7 +59,7 @@ public class BoardTest {
 		}
 		
 		assertEquals(25, list.size());
-		assertFalse(tester == testee);
+		assertFalse(tester.equals(testee));
 	}
 	
 	/*
@@ -81,18 +73,14 @@ public class BoardTest {
 		//test list size
 		assertEquals(25, list.size());
 		//test shuffle
-		ArrayList<String> testList = new ArrayList<String>();
-		for (int i = 0; i < 9; i++) {
-			testList.add("red");
+		
+		String tester = "redredredredred";
+		String testee = "";
+		
+		for(int i = 0; i < 5; i++) {
+			testee += list.get(i);
 		}
-		for(int i = 0; i < 8; i++) {
-			list.add("blue");
-		}
-		for(int i = 0; i < 7; i++) {
-			list.add("innocent");
-		}
-		list.add("assassin");
-		assertNotEquals(testList, list);
+		assertFalse(tester.equals(testee));
 	}
 	
 	/*
@@ -102,9 +90,9 @@ public class BoardTest {
 	public void testGameStart() {
 		Board bob = new Board();
 		bob.createBoard();
+		bob.setRedTeamTurn(false);
 		bob.gameStart("src/GameWords.txt");
-		assertTrue(bob.isRedTeamTurn());
-		
+		assertTrue(bob.isRedTeamTurn());	
 	}
 	
 	/*
@@ -116,8 +104,8 @@ public class BoardTest {
 		br.createBoard();
 		br.gameStart("src/GameWords.txt");
 		assertFalse(br.checkIllegalClue("number"));
-//		assertTrue(br.checkIllegalClue(br.getBoard()[0].getCodename()));
-		//need to find a way to check when the clue should be illegal and return true
+		br.getBoard()[5].setCodename("number");
+		assertTrue(br.checkIllegalClue(br.getBoard()[0].getCodename()));
 	}
 	
 	/*
@@ -130,6 +118,9 @@ public class BoardTest {
 		assertFalse(br.gameWon());
 		br.setBluesLeft(5);
 		br.setRedsLeft(0);
+		assertTrue(br.gameWon());
+		br.setBluesLeft(0);
+		br.setRedsLeft(5);
 		assertTrue(br.gameWon());
 	}
 	
@@ -169,10 +160,10 @@ public class BoardTest {
 		Board br = new Board();
 		br.createBoard();
 		br.gameStart("src/GameWords.txt");
+		assertTrue(br.isRedTeamTurn());
 		for(int index = 0; index < 25; index++) {
 			assertNotNull(br.getBoard()[index].getCodename());
 			assertNotNull(br.getBoard()[index].getPerson());
-			assertTrue(br.isRedTeamTurn());
 			assertTrue(br.getBoard()[index].isNotRevealed());
 		}
 	}

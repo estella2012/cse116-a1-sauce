@@ -20,24 +20,31 @@ public class Board {
 	//the number associated with each clue
 	private int count;
 	//the word at the location of the guess
-	private String guess ;
+	private String guess;
 	//an int used to keep track of how many blue locations are left on the board
 	private int bluesLeft;
 	//an int used to keep track of how many blue locations are left on the board
 	private int redsLeft;
 	
-	//constructor for Board
+	/*
+	 * Initializes wordList and personList
+	 */
 	public Board() {
 		wordList = new ArrayList<>();
 		personList = new ArrayList<>();
 	}
 	
+	/*
+	 * Sets the amount of words that the given clue pertains to,
+	 * as well as the amount of guesses the guessing side can have.
+	 */
 	public void setCount(int x) {
 		count = x;
 	}
 	
 	/*
 	 * Initiate the the board and the number of words left for both teams
+	 * Creates a new location for each space on the board
 	 */
 	public void createBoard() {
 		setBoard(new Location[25]);
@@ -56,7 +63,6 @@ public class Board {
 		ArrayList<String> list = new ArrayList<String>();
 		ArrayList<String> codenameList = new ArrayList<String>();
 		try {
-//			String filename = "src/GameWords.txt";
 			for (String line : Files.readAllLines(Paths.get(filename))) {
 				list.add(line);
 			}
@@ -71,8 +77,8 @@ public class Board {
 		}
 	
 	/*
-	 * Assign 9 red, 8 blue, 7 innocent and 1 assassin into a list, shuffle it,
-	 * which will create a list that can randomly assign a person to the codename.
+	 * Puts 9 red, 8 blue, 7 innocent and 1 assassin into a list, shuffles it,
+	 * which will create a list that can randomly assign a person to the codename in a later method.
 	 */
 	public ArrayList<String> createListOfPersons(){
 		ArrayList<String> list = new ArrayList<>();
@@ -104,7 +110,7 @@ public class Board {
 	}
 	
 	/*
-	 * Create a list of random words, a list of random persons, and assign them to the board.
+	 * Create a list of random codenames, a list of random persons, and assign them to the board.
 	 */
 	public void assignPeople(String filename) {
 		wordList = createListOfWords(filename);
@@ -124,7 +130,7 @@ public class Board {
 		boolean illegalClue = false;
 		String fixedClue = clue.toUpperCase();
 		for(int i = 0; i < 25; i++) {
-				if(fixedClue.equals(getBoard()[i].getCodename())) {
+				if(fixedClue.equals(getBoard()[i].getCodename().toUpperCase())) {
 					if(getBoard()[i].isNotRevealed()) {
 					return true;
 					}
@@ -141,42 +147,37 @@ public class Board {
 	 * If the team guesses the assassin, runs whichTeamWonAssassin. 
 	 */
 	public boolean checkGuess(String guess) {
-		boolean isTeamAgent = false;
 		setCount(count - 1);
 		setGuess(guess);
 		for(int i = 0; i < 25; i++) {
 			if(guess.equals(getBoard()[i].getCodename())) {
 				getBoard()[i].setNotRevealed(false);
 				if(getBoard()[i].getPerson().equals("blue") && redTeamTurn == false) {
-					isTeamAgent = true;
 					setBluesLeft(getBluesLeft() - 1);
-					return isTeamAgent;
+					return true;
 				}
 				if(getBoard()[i].getPerson().equals("red") && redTeamTurn == false) {
-					isTeamAgent = false;
 					setRedsLeft(getRedsLeft() - 1);
-					return isTeamAgent;
+					return false;
 				}
 				if(getBoard()[i].getPerson().equals("blue") && redTeamTurn == true) {
-					isTeamAgent = false;
 					setBluesLeft(getBluesLeft() - 1);
-					return isTeamAgent;
+					return false;
 				}
 				if(getBoard()[i].getPerson().equals("red") && redTeamTurn == true) {
-					isTeamAgent = true;
 					setRedsLeft(getRedsLeft() - 1);
-					return isTeamAgent;
+					return true;
 				}
 				if(getBoard()[i].getPerson().equals("innocent")) {
 					return false;
 				}
 				if(getBoard()[i].getPerson().equals("assassin")) {
-					whichTeamWonAssassin(); //I think this line is something we'll need to work with when we create a GUI but for now it can't do much
+					//whichTeamWonAssassin(); I think this line is something we'll need to work with when we create a GUI but for now it can't do much
 					return false;
 				}
 			}
 		}
-		return isTeamAgent;
+		return false;
 	}
 	
 	
@@ -184,15 +185,15 @@ public class Board {
 	 * If one of the team's word left turn to zero, stop the game.
 	 */
 	public boolean gameWon() {
-		boolean gameOver = false;
-		for (int index = 0; index < 25; index++) {
 			if(getRedsLeft() == 0 || getBluesLeft() == 0) {
 				return true;
 			}
-		}
-		return gameOver;
+		return false;
 	}
-
+	
+	/*
+	 * Getter and setter for whose turn it is.
+	 */
 	public boolean isRedTeamTurn() {
 		return redTeamTurn;
 	}
@@ -215,6 +216,10 @@ public class Board {
 		return winningTeam;
 	}
 
+	/*
+	 * Generic getters and setters for variables.
+	 */
+	
 	public Location[] getBoard() {
 		return board;
 	}

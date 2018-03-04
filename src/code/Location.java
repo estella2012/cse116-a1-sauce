@@ -17,7 +17,9 @@ public class Location {
 		notRevealed = true;
 	}
 
-	//generic getters/setters for each variable
+	/*
+	 * Generic getters and setters.
+	 */
 	
 	public Location() {
 		// TODO Auto-generated constructor stub
