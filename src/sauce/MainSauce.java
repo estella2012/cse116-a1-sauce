@@ -1,16 +1,15 @@
 package sauce;
 
-import java.util.List;
-
-import code.Board;
-import code.Location;
+import GUIs.MainGUI;
 
 public class MainSauce {
 
+	@SuppressWarnings("static-access")
 	public static void main(String [] args){
-		System.out.println("holla atcha boy");
-		System.out.println("de way");
-		
+		//System.out.println("holla atcha boy");
+		//System.out.println("de way");
+		MainGUI g = new MainGUI();
+		g.run();
 	}
 	
 }

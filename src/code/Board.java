@@ -54,6 +54,7 @@ public class Board {
 		}
 		setRedsLeft(9);
 		setBluesLeft(8);
+		//setRedsLeft((int) Math.ceil(Math.random() * 100));
 	}
 	
 	/*
@@ -172,7 +173,7 @@ public class Board {
 					return false;
 				}
 				if(getBoard()[i].getPerson().equals("assassin")) {
-					//whichTeamWonAssassin(); I think this line is something we'll need to work with when we create a GUI but for now it can't do much
+					//whichTeamWonAssassin(); I think this line is something we'll need to work with when we create a MainGUI but for now it can't do much
 					return false;
 				}
 			}
