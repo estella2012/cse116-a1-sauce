@@ -108,6 +108,7 @@ public class Board {
 	public void gameStart(String filename) {
 		setRedTeamTurn(true);
 		assignPeople(filename);
+		count = 0;
 	}
 	
 	/*
@@ -148,7 +149,9 @@ public class Board {
 	 * If the team guesses the assassin, runs whichTeamWonAssassin. 
 	 */
 	public boolean checkGuess(String guess) {
-		setCount(count - 1);
+		if(count != 0) {
+			setCount(count - 1);
+			}
 		setGuess(guess);
 		for(int i = 0; i < 25; i++) {
 			if(guess.equals(getBoard()[i].getCodename())) {
@@ -190,6 +193,19 @@ public class Board {
 				return true;
 			}
 		return false;
+	}
+	
+	public void updateTurn() {
+		if(count <= 0) {
+			if(redTeamTurn) {
+				redTeamTurn = false;
+				count = 0;
+			}
+			else {
+				redTeamTurn = true;
+				count = 0;
+			}
+		}
 	}
 	
 	/*
@@ -249,5 +265,9 @@ public class Board {
 	}
 	public void setGuess(String yourGuess) {
 		guess = yourGuess;
+	}
+
+	public int getCount() {
+		return count;
 	}
 }

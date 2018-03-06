@@ -17,6 +17,7 @@ import javax.swing.UIManager.LookAndFeelInfo;
 public class MainGUI {
 	
 	private static String clue;
+	private static boolean spymasterTurn = true;
 	
 	@SuppressWarnings("serial")
 	public static void run() {
@@ -42,13 +43,17 @@ public class MainGUI {
 		
 	    JMenu clueShower = new JMenu("");
 	    JMenu countShower = new JMenu("");
+	    JMenu turn = new JMenu();
 		
 		JButton submitClue = new JButton("Submit Clue");
+		JButton spymaster = new JButton("Back to Spymaster");
 		buttonPlace.add(submitClue);
+		buttonPlace.add(spymaster);
 		
 		submitClue.addActionListener(new ActionListener(){
 	    	@Override
 	        public void actionPerformed(ActionEvent e){
+	    		if(spymasterTurn) {
 	    		Object[] possibilities = null;
 	    		String s = (String)JOptionPane.showInputDialog(
 	    		                    frame,
@@ -84,16 +89,190 @@ public class MainGUI {
 	    		                    null,
 	    		                    possibilities2,
 	    		                    "");
-				if(s.equals("1")) {
-					board.setCount(1);
-				}
+				board.setCount(Integer.parseInt(s));
 	    		countShower.setText("Count: " + s);
+	    		gameWindow.removeAll();
+	    	for(int i = 0; i < 25; i++) {
+		    	JButton buttonToAdd = new JButton();
+		    	buttonToAdd.setText(board.getBoard()[i].getCodename());
+		    	buttonToAdd.setFocusable(false);
+		    	buttonToAdd.setFont(new Font(null, Font.BOLD, 12));
+		    	buttonToAdd.addActionListener(new ActionListener(){
+			    	@Override
+			        public void actionPerformed(ActionEvent e){
+			    		if(board.checkGuess(buttonToAdd.getText())) {
+			    			if(board.isRedTeamTurn()) {
+			    				board.setRedTeamTurn(false);
+			    			}
+			    			else {
+			    				board.setRedTeamTurn(true);
+			    			}
+			    			JOptionPane.showMessageDialog(frame,
+			    				    "<html>Please return the computer to the Spymasters<br> If you are the Spymaster, please press 'OK'.</html>",
+			    				    "TURN OVER",
+			    				    JOptionPane.PLAIN_MESSAGE);
+			    		}
+			    		for(int i = 0; i < 25; i ++) {
+			    			if(buttonToAdd.getText().equals(board.getBoard()[i].getCodename())) {
+			    				if(board.getBoard()[i].getPerson().equals("red")) {
+			    		    		buttonToAdd.setBackground(Color.red);
+			    		    	}
+			    		    	if(board.getBoard()[i].getPerson().equals("blue")) {
+			    		    		buttonToAdd.setBackground(Color.cyan);
+			    		    	}
+			    		    	if(board.getBoard()[i].getPerson().equals("innocent")) {
+			    		    		buttonToAdd.setBackground(Color.yellow);
+			    		    	}
+			    		    	if(board.getBoard()[i].getPerson().equals("assassin")) {
+			    		    		buttonToAdd.setBackground(Color.black);
+			    		    		buttonToAdd.setForeground(Color.white);
+			    		    		board.whichTeamWonAssassin();
+			    		    	}
+			    			}
+			    		}
+			    		countShower.setText("Count: " + board.getCount());
+			    		board.updateTurn();
+			    		if(board.isRedTeamTurn()) {
+			    	    	turn.setText("Current Turn: RED");
+			    	    	turn.setForeground(Color.red);
+			    	    }
+			    	    else{
+			    	    	turn.setText("Current Turn: BLUE");
+			    	    	turn.setForeground(Color.blue);
+			    	    }
+			    		if (board.getCount() == 0) {
+			    			JOptionPane.showMessageDialog(frame,
+			    				    "<html>Please return the computer to the Spymasters<br> If you are the Spymaster, please press 'OK'.</html>",
+			    				    "TURN OVER",
+			    				    JOptionPane.PLAIN_MESSAGE);
+			    			gameWindow.removeAll();
+							clueShower.setText("");
+			    		    countShower.setText("");
+							for(int i = 0; i < 25; i++) {
+						    	JButton buttonToAdd = new JButton();
+						    	buttonToAdd.setText(board.getBoard()[i].getCodename());
+						    	buttonToAdd.setFocusable(false);
+						    	buttonToAdd.setFont(new Font(null, Font.BOLD, 12));
+						    	buttonToAdd.addActionListener(new ActionListener(){
+							    	@Override
+							        public void actionPerformed(ActionEvent e){
+							    		board.checkGuess(buttonToAdd.getText());
+							    		countShower.setText("Count: " + board.getCount());
+							    		board.updateTurn();
+							    		if(board.isRedTeamTurn()) {
+							    	    	turn.setText("Current Turn: RED");
+							    	    	turn.setForeground(Color.red);
+							    	    }
+							    	    else{
+							    	    	turn.setText("Current Turn: BLUE");
+							    	    	turn.setForeground(Color.blue);
+							    	    }
+							    		if (board.getCount() == 0) {
+							    			
+							    		}
+							    	}
+							    });
+						    		buttonToAdd.setBackground(Color.lightGray);
+						    		if(board.getBoard()[i].getPerson().equals("red")) {
+				    		    		buttonToAdd.setBackground(Color.red);
+				    		    	}
+				    		    	if(board.getBoard()[i].getPerson().equals("blue")) {
+				    		    		buttonToAdd.setBackground(Color.cyan);
+				    		    	}
+				    		    	if(board.getBoard()[i].getPerson().equals("innocent")) {
+				    		    		buttonToAdd.setBackground(Color.yellow);
+				    		    	}
+				    		    	if(board.getBoard()[i].getPerson().equals("assassin")) {
+				    		    		buttonToAdd.setBackground(Color.black);
+				    		    		buttonToAdd.setForeground(Color.white);
+				    		    	}
+				    				gameWindow.add(buttonToAdd);
+				    			}
+				    		    gameWindow.validate();
+				    		    spymasterTurn = true;
+			    		}
+			    	}
+			    });
+		    	if(board.getBoard()[i].isNotRevealed()) {
+		    		buttonToAdd.setBackground(Color.lightGray);
+		    	}
+		    	else {
+		    		if(board.getBoard()[i].getPerson().equals("red")) {
+    		    		buttonToAdd.setBackground(Color.red);
+    		    	}
+    		    	if(board.getBoard()[i].getPerson().equals("blue")) {
+    		    		buttonToAdd.setBackground(Color.cyan);
+    		    	}
+    		    	if(board.getBoard()[i].getPerson().equals("innocent")) {
+    		    		buttonToAdd.setBackground(Color.yellow);
+    		    	}
+    		    	if(board.getBoard()[i].getPerson().equals("assassin")) {
+    		    		buttonToAdd.setBackground(Color.black);
+    		    		buttonToAdd.setForeground(Color.white);
+    		    	}
+		    	}
+		    	if(board.getBoard()[i].getPerson().equals("assassin")) {
+		    		buttonToAdd.setForeground(Color.black);
+		    	}
+				gameWindow.add(buttonToAdd);
+			}
+		}
 	    	}
 	    });
 		
+		spymaster.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				gameWindow.removeAll();
+				clueShower.setText("");
+    		    countShower.setText("");
+				for(int i = 0; i < 25; i++) {
+			    	JButton buttonToAdd = new JButton();
+			    	buttonToAdd.setText(board.getBoard()[i].getCodename());
+			    	buttonToAdd.setFocusable(false);
+			    	buttonToAdd.setFont(new Font(null, Font.BOLD, 12));
+			    	buttonToAdd.addActionListener(new ActionListener(){
+				    	@Override
+				        public void actionPerformed(ActionEvent e){
+				    		board.checkGuess(buttonToAdd.getText());
+				    		countShower.setText("Count: " + board.getCount());
+				    		board.updateTurn();
+				    		if(board.isRedTeamTurn()) {
+				    	    	turn.setText("Current Turn: RED");
+				    	    	turn.setForeground(Color.red);
+				    	    }
+				    	    else{
+				    	    	turn.setText("Current Turn: BLUE");
+				    	    	turn.setForeground(Color.blue);
+				    	    }
+				    		if (board.getCount() == 0) {
+				    			
+				    		}
+				    	}
+				    });
+			    		buttonToAdd.setBackground(Color.lightGray);
+			    		if(board.getBoard()[i].getPerson().equals("red")) {
+	    		    		buttonToAdd.setBackground(Color.red);
+	    		    	}
+	    		    	if(board.getBoard()[i].getPerson().equals("blue")) {
+	    		    		buttonToAdd.setBackground(Color.cyan);
+	    		    	}
+	    		    	if(board.getBoard()[i].getPerson().equals("innocent")) {
+	    		    		buttonToAdd.setBackground(Color.yellow);
+	    		    	}
+	    		    	if(board.getBoard()[i].getPerson().equals("assassin")) {
+	    		    		buttonToAdd.setBackground(Color.black);
+	    		    		buttonToAdd.setForeground(Color.white);
+	    		    	}
+	    				gameWindow.add(buttonToAdd);
+	    			}
+	    		    gameWindow.validate();
+	    		    spymasterTurn = true;
+	    	    }
+		});
+		
 	    JMenuBar menuBar = new JMenuBar();
 	    JMenu menu = new JMenu("File");
-	    JMenu turn = new JMenu();
 	    if(board.isRedTeamTurn()) {
 	    	turn.setText("Current Turn: RED");
 	    	turn.setForeground(Color.red);
@@ -108,11 +287,29 @@ public class MainGUI {
 	    		 	board.createBoard();
 	    		    board.gameStart("src/GameWords.txt");
 	    		    gameWindow.removeAll();
+	    		    clueShower.setText("");
+	    		    countShower.setText("");
 	    		    for(int i = 0; i < 25; i++) {
 	    		    	JButton buttonToAdd = new JButton();
 	    		    	buttonToAdd.setText(board.getBoard()[i].getCodename());
 	    		    	buttonToAdd.setFocusable(false);
 	    		    	buttonToAdd.setFont(new Font(null, Font.BOLD, 12));
+	    		    	buttonToAdd.addActionListener(new ActionListener(){
+	    			    	@Override
+	    			        public void actionPerformed(ActionEvent e){
+	    			    		board.checkGuess(board.getBoard()[5].getCodename());
+	    			    		countShower.setText("Count: " + board.getCount());
+	    			    		board.updateTurn();
+	    			    		if(board.isRedTeamTurn()) {
+	    			    	    	turn.setText("Current Turn: RED");
+	    			    	    	turn.setForeground(Color.red);
+	    			    	    }
+	    			    	    else{
+	    			    	    	turn.setText("Current Turn: BLUE");
+	    			    	    	turn.setForeground(Color.blue);
+	    			    	    }
+	    			    	}
+	    			    });
 	    		    	if(board.getBoard()[i].getPerson().equals("red")) {
 	    		    		buttonToAdd.setBackground(Color.red);
 	    		    	}
@@ -129,6 +326,7 @@ public class MainGUI {
 	    				gameWindow.add(buttonToAdd);
 	    			}
 	    		    gameWindow.validate();
+	    		    spymasterTurn = true;
 	    	    }
 	    	});
 	    
@@ -152,10 +350,26 @@ public class MainGUI {
 		gameWindow.setLayout(grid);
 		
 		for(int i = 0; i < 25; i++) {
-	    	JButton buttonToAdd = new JButton();
+			JButton buttonToAdd = new JButton();
 	    	buttonToAdd.setText(board.getBoard()[i].getCodename());
 	    	buttonToAdd.setFocusable(false);
 	    	buttonToAdd.setFont(new Font(null, Font.BOLD, 12));
+	    	buttonToAdd.addActionListener(new ActionListener(){
+		    	@Override
+		        public void actionPerformed(ActionEvent e){
+		    		board.checkGuess(board.getBoard()[5].getCodename());
+		    		countShower.setText("Count: " + board.getCount());
+		    		board.updateTurn();
+		    		if(board.isRedTeamTurn()) {
+		    	    	turn.setText("Current Turn: RED");
+		    	    	turn.setForeground(Color.red);
+		    	    }
+		    	    else{
+		    	    	turn.setText("Current Turn: BLUE");
+		    	    	turn.setForeground(Color.blue);
+		    	    }
+		    	}
+		    });
 	    	if(board.getBoard()[i].getPerson().equals("red")) {
 	    		buttonToAdd.setBackground(Color.red);
 	    	}
