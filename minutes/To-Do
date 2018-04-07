@@ -26,10 +26,10 @@ During the rest of the team's portion of the turn:
 -there's probably a 'isRevealed' boolean somewhere that can do this
 	Y Selecting a Location that has not been revealed results in the Location being Revealed and the current count is decreased by 1 [4 points]
 -gets a message that says to return the computer to the spymaster while there's at least 1 count left
-	When the Location that is selected contains the Assassin, Innocent Bystander, or Agent from the other team, the turn ends [6 points]
+	 When the Location that is selected contains the Assassin, Innocent Bystander, or Agent from the other team, the turn ends [6 points]
 -turn only ends early when team's agent is selected
 	When the Location that is selected reveals the last unrevealed Agent for the current team, the turn ends [2 points]
-	If the count drops below 0, the turn ends [2 points]
+	Y If the count drops below 0, the turn ends [2 points]
 At the end of the turn:
 	If the game has been won, a message is displayed stating the winning team has won [2 points]
 	If the game has not been won, begin the turn for the other team [2 points]
