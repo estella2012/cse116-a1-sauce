@@ -173,6 +173,7 @@ public class Board {
 					return true;
 				}
 				if(getBoard()[i].getPerson().equals("innocent")) {
+					count = 0;
 					return false;
 				}
 				if(getBoard()[i].getPerson().equals("assassin")) {
