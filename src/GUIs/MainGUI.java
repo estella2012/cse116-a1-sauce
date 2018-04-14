@@ -111,7 +111,7 @@ public class MainGUI {
 	    		                    null,
 	    		                    possibilities,
 	    		                    "");
-	    		while(!(s == null) && board.checkIllegalClue(s)) {
+	    		while(board.checkIllegalClue(s)) {
 	    			possibilities = null;
 		    		s = (String)JOptionPane.showInputDialog(
 		    		                    frame,
@@ -123,6 +123,9 @@ public class MainGUI {
 		    		                    "");
 	    		}
 	    		clue = s;
+	    		if(clue.equals("HERTZ")) {
+	    			
+	    		}
 	    		clue = clue.toUpperCase();
 	    		clueShower.setText("Clue: " + clue);
 	    		Object[] possibilities2 = {"1","2","3","4","5","6","7","8","9"};
