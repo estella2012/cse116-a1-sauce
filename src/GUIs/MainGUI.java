@@ -75,54 +75,6 @@ public class MainGUI {
     			    	}
     		    	buttonToAdd.setFocusable(false);
     		    	buttonToAdd.setFont(new Font(null, Font.BOLD, 12));
-    		    /*	buttonToAdd.addActionListener(new ActionListener(){
-    			    	@Override
-    			        public void actionPerformed(ActionEvent e){
-    			    		if(!spymasterTurn) {	
-    			    		for(int i = 0; i < 25; i++) {
-				    			if(buttonToAdd.getText().equals(board.getBoard()[i].getCodename())) {
-				    				if(board.getBoard()[i].getPerson().equals("assassin")) {
-				    					String whichTeamWon = board.whichTeamWonAssassin();
-				    					Object [] options = {"Yes", "No"};
-				    					if(whichTeamWon.equals("red")) {
-							    			JOptionPane.showOptionDialog(frame,
-							    				    "The red team won!",
-							    				    "YOU CHOSE THE ASSASSIN",
-							    				    JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, null);
-					    				}								    					
-				    					else {
-				    						JOptionPane.showMessageDialog(frame,
-							    				    "The blue team won!",
-							    				    "YOU CHOSE THE ASSASSIN",
-							    				    JOptionPane.PLAIN_MESSAGE);
-				    					}
-				    				}
-				    			}
-				    		}
-    			    		if(!board.checkGuess(buttonToAdd.getText())) {
-    			    			if(board.isRedTeamTurn()) {
-    			    				board.setRedTeamTurn(false);
-    			    			}
-    			    			else {
-    			    				board.setRedTeamTurn(true);
-    			    			}
-    			    		}
-				    		if(buttonToAdd.getText() == " ") {
-				    			board.setCount(board.getCount() + 1);
-				    		}
-    			    		countShower.setText("Count: " + board.getCount());
-    			    		board.updateTurn();
-    			    		if(board.isRedTeamTurn()) {
-    			    	    	turn.setText("Current Turn: RED");
-    			    	    	turn.setForeground(Color.red);
-    			    	    }
-    			    	    else{
-    			    	    	turn.setText("Current Turn: BLUE");
-    			    	    	turn.setForeground(Color.blue);
-    			    	    }
-    			    	}
-    		    	}
-    		    	}); */
     		    	if(board.getBoard()[i].getPerson().equals("red")) {
     		    		buttonToAdd.setBackground(Color.red);
     		    	}
