@@ -130,6 +130,9 @@ public class Board {
 	 */
 	public boolean checkIllegalClue(String clue) {
 		boolean illegalClue = false;
+		if(clue.contains(" ") || clue.isEmpty()) {
+			return true;
+		}
 		String fixedClue = clue.toUpperCase();
 		for(int i = 0; i < 25; i++) {
 				if(fixedClue.equals(getBoard()[i].getCodename().toUpperCase())) {
