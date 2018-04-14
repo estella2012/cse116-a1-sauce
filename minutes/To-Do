@@ -20,7 +20,7 @@ During the rest of the team's portion of the turn:
 	Y The spymaster's clue and current count are clearly visible [2 points]
 	Y Revealed Locations only display the Blue Agent/Red Agent/Assassin/Innocent Bystander assigned to them [4 points]
 	Y Locations that have NOT been revealed ONLY display their codeword [4 points]
-	Selecting the option to voluntarily end this turn, ends the turn [2 points]
+	Y Selecting the option to voluntarily end this turn, ends the turn [2 points]
 -selecting 'return to spymaster' does not change the team
 	Y Revealed Locations cannot be selected [2 points]
 -there's probably a 'isRevealed' boolean somewhere that can do this

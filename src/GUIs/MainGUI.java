@@ -19,7 +19,7 @@ public class MainGUI {
 	
 	private static String clue;
 	private static boolean spymasterTurn = true;
-	private static ArrayList<JButton> plsWork = new ArrayList<>();
+	private static ArrayList<JButton> buttonList = new ArrayList<>();
 	
 	@SuppressWarnings("serial")
 	public static void run() {
@@ -61,14 +61,14 @@ public class MainGUI {
 	    		board.createBoard();
     		    board.gameStart("src/GameWords.txt");
     		    gameWindow.removeAll();
-    		    plsWork = new ArrayList<>();
+    		    buttonList = new ArrayList<>();
     		    clueShower.setText("");
     		    countShower.setText("");
     		    turn.setText("Current Turn: RED");
     	    	turn.setForeground(Color.red);
     		    for(int i = 0; i < 25; i++) {
     		    	JButton buttonToAdd = new JButton();
-    		    	plsWork.add(buttonToAdd);
+    		    	buttonList.add(buttonToAdd);
     		    	if(board.getBoard()[i].isNotRevealed()) {
     			    	buttonToAdd.setText(board.getBoard()[i].getCodename());
     			    	}
@@ -77,7 +77,7 @@ public class MainGUI {
     			    	}
     		    	buttonToAdd.setFocusable(false);
     		    	buttonToAdd.setFont(new Font(null, Font.BOLD, 12));
-    		    	buttonToAdd.addActionListener(new ActionListener(){
+    		    /*	buttonToAdd.addActionListener(new ActionListener(){
     			    	@Override
     			        public void actionPerformed(ActionEvent e){
     			    		if(!spymasterTurn) {	
@@ -124,7 +124,7 @@ public class MainGUI {
     			    	    }
     			    	}
     		    	}
-    		    	});
+    		    	}); */
     		    	if(board.getBoard()[i].getPerson().equals("red")) {
     		    		buttonToAdd.setBackground(Color.red);
     		    	}
@@ -217,6 +217,9 @@ public class MainGUI {
 						    				    JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, null);
 						    			if(input == JOptionPane.YES_OPTION) {
 						    				newGame.doClick();
+						    				spymasterTurn = false;
+						    				spymaster.doClick();
+						    				spymasterTurn = true;
 						    			}
 						    			else {
 						    				System.exit(0);
@@ -228,92 +231,10 @@ public class MainGUI {
 						    				    "YOU CHOSE THE ASSASSIN",
 						    				    JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, null);
 						    			if(input == JOptionPane.YES_OPTION) {
-						    				board.createBoard();
-							    		    board.gameStart("src/GameWords.txt");
-							    		    gameWindow.removeAll();
-							    		    plsWork = new ArrayList<>();
-							    		    clueShower.setText("");
-							    		    countShower.setText("");
-							    		    turn.setText("Current Turn: RED");
-							    	    	turn.setForeground(Color.red);
-							    		    for(int j = 0; j < 25; j++) {
-							    		    	JButton buttonToAdd = new JButton();
-							    		    	plsWork.add(buttonToAdd);
-							    		    	if(board.getBoard()[j].isNotRevealed()) {
-							    			    	buttonToAdd.setText(board.getBoard()[j].getCodename());
-							    			    	}
-							    			    	else {
-							    			    		buttonToAdd.setText(" ");
-							    			    	}
-							    		    	buttonToAdd.setFocusable(false);
-							    		    	buttonToAdd.setFont(new Font(null, Font.BOLD, 12));
-							    		    	buttonToAdd.addActionListener(new ActionListener(){
-							    			    	@Override
-							    			        public void actionPerformed(ActionEvent e){
-							    			    		for(int i = 0; i < 25; i++) {
-											    			if(buttonToAdd.getText().equals(board.getBoard()[i].getCodename())) {
-											    				if(board.getBoard()[i].getPerson().equals("assassin")) {
-											    					String whichTeamWon = board.whichTeamWonAssassin();
-											    					Object [] options = {"Yes", "No"};
-											    					if(whichTeamWon.equals("red")) {
-														    			JOptionPane.showOptionDialog(frame,
-														    				    "The red team won!",
-														    				    "YOU CHOSE THE ASSASSIN",
-														    				    JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, null);
-												    				}								    					
-											    					else {
-											    						JOptionPane.showMessageDialog(frame,
-														    				    "The blue team won!",
-														    				    "YOU CHOSE THE ASSASSIN",
-														    				    JOptionPane.PLAIN_MESSAGE);
-											    					}
-											    				}
-											    			}
-											    		}
-							    			    		if(!board.checkGuess(buttonToAdd.getText())) {
-							    			    			if(board.isRedTeamTurn()) {
-							    			    				board.setRedTeamTurn(false);
-							    			    			}
-							    			    			else {
-							    			    				board.setRedTeamTurn(true);
-							    			    			}
-							    			    		}
-											    		if(buttonToAdd.getText() == " ") {
-											    			board.setCount(board.getCount() + 1);
-											    		}
-							    			    		countShower.setText("Count: " + board.getCount());
-							    			    		board.updateTurn();
-							    			    		if(board.isRedTeamTurn()) {
-							    			    	    	turn.setText("Current Turn: RED");
-							    			    	    	turn.setForeground(Color.red);
-							    			    	    }
-							    			    	    else{
-							    			    	    	turn.setText("Current Turn: BLUE");
-							    			    	    	turn.setForeground(Color.blue);
-							    			    	    }
-							    			    	}
-							    			    });
-							    		    	if(board.getBoard()[i].getPerson().equals("red")) {
-							    		    		buttonToAdd.setBackground(Color.red);
-							    		    	}
-							    		    	if(board.getBoard()[i].getPerson().equals("blue")) {
-							    		    		buttonToAdd.setBackground(Color.cyan);
-							    		    	}
-							    		    	if(board.getBoard()[i].getPerson().equals("innocent")) {
-							    		    		buttonToAdd.setBackground(Color.yellow);
-							    		    	}
-							    		    	if(board.getBoard()[i].getPerson().equals("assassin")) {
-							    		    		buttonToAdd.setBackground(Color.black);
-							    		    		buttonToAdd.setForeground(Color.white);
-							    		    	}
-							    				gameWindow.add(buttonToAdd);
-							    			}
-							    		    gameWindow.validate();
-							    		    spymasterTurn = true;
-							    		    board.updateTurn();
-							    		    board.setRedTeamTurn(true);
-							    		    turn.setText("Current Turn: RED");
-							    	    	turn.setForeground(Color.red);
+						    				newGame.doClick();
+						    				spymasterTurn = false;
+						    				spymaster.doClick();
+						    				spymasterTurn = true;
 							    	    }						    			
 						    			else {
 						    				System.exit(0);
@@ -664,7 +585,7 @@ public class MainGUI {
 		
 		for(int i = 0; i < 25; i++) {
 			JButton buttonToAdd = new JButton();
-	    	plsWork.add(buttonToAdd);
+	    	buttonList.add(buttonToAdd);
 	    	if(board.getBoard()[i].isNotRevealed()) {
 	    	buttonToAdd.setText(board.getBoard()[i].getCodename());
 	    	}
