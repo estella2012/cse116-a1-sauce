@@ -47,8 +47,6 @@ public class MainGUI {
 	    JMenu clueShower = new JMenu("");
 	    JMenu countShower = new JMenu("");
 	    JMenu turn = new JMenu();
-	    
-	    
 		
 		JButton submitClue = new JButton("Submit Clue");
 		JButton spymaster = new JButton("Back to Spymaster");
@@ -244,12 +242,6 @@ public class MainGUI {
 			    			}
 			    		}
 			    		if(!board.checkGuess(buttonToAdd.getText())) {
-			    			/*if(board.isRedTeamTurn()) {
-			    				board.setRedTeamTurn(false);
-			    			}
-			    			else {
-			    				board.setRedTeamTurn(true);
-			    			}*/
 			    			board.setCount(0);
 			    		}
 			    		if(buttonToAdd.getText() == " ") {
