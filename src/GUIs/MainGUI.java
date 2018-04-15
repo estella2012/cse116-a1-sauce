@@ -138,7 +138,7 @@ public class MainGUI  {
 	    			JLabel pic1 = new JLabel(); 
 	    			ImageIcon a = new ImageIcon(); 
 	    			try {
-						BufferedImage img = ImageIO.read(new File(""));
+						BufferedImage img = ImageIO.read(new File("memes/hertz memes.png"));
 						a.setImage(img);
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
@@ -152,7 +152,6 @@ public class MainGUI  {
 	    			
 	    			memeWindow.setVisible(true);
 	    			memeWindow.pack();
-	    		    memeWindow.setSize(600, 500);
 	    			Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 	    			memeWindow.setLocation(dim.width/2-memeWindow.getSize().width/2, dim.height/2-memeWindow.getSize().height/2);
 	    			
@@ -165,7 +164,7 @@ public class MainGUI  {
 	    			JLabel pic2 = new JLabel(); 
 	    			ImageIcon b = new ImageIcon(); 
 	    			try {
-						BufferedImage img = ImageIO.read(new File(""));
+						BufferedImage img = ImageIO.read(new File("memes/Steal his look.png"));
 						b.setImage(img);
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
@@ -179,7 +178,6 @@ public class MainGUI  {
 	    			
 	    			memeWindow.setVisible(true);
 	    			memeWindow.pack();
-	    		    memeWindow.setSize(600, 500);
 	    			Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 	    			memeWindow.setLocation(dim.width/2-memeWindow.getSize().width/2, dim.height/2-memeWindow.getSize().height/2);
 	    		}
@@ -190,7 +188,7 @@ public class MainGUI  {
 	    			JLabel pic3 = new JLabel(); 
 	    			ImageIcon c = new ImageIcon(); 
 	    			try {
-						BufferedImage img = ImageIO.read(new File(""));
+						BufferedImage img = ImageIO.read(new File("memes/Vapowave.png"));
 						c.setImage(img);
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
@@ -204,7 +202,6 @@ public class MainGUI  {
 	    			
 	    			memeWindow.setVisible(true);
 	    			memeWindow.pack();
-	    		    memeWindow.setSize(600, 500);
 	    			Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 	    			memeWindow.setLocation(dim.width/2-memeWindow.getSize().width/2, dim.height/2-memeWindow.getSize().height/2);
 	    		}
@@ -215,7 +212,7 @@ public class MainGUI  {
 	    			JLabel pic4 = new JLabel(); 
 	    			ImageIcon d = new ImageIcon(); 
 	    			try {
-						BufferedImage img = ImageIO.read(new File(""));
+						BufferedImage img = ImageIO.read(new File("memes/if you dont love me.png"));
 						d.setImage(img);
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
@@ -229,7 +226,6 @@ public class MainGUI  {
 	    			
 	    			memeWindow.setVisible(true);
 	    			memeWindow.pack();
-	    		    memeWindow.setSize(600, 500);
 	    			Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 	    			memeWindow.setLocation(dim.width/2-memeWindow.getSize().width/2, dim.height/2-memeWindow.getSize().height/2);
 	    		}

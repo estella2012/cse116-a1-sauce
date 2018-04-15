@@ -33,5 +33,5 @@ During the rest of the team's portion of the turn:
 At the end of the turn:
 	Y If the game has been won, a message is displayed stating the winning team has won [2 points]
 	Y If the game has not been won, begin the turn for the other team [2 points]
-The program includes a cool easter egg [6 points]
+	Y The program includes a cool easter egg [6 points]
 All non-JUnit classes, methods, and instance variables are commented using Javadoc [2 points]
