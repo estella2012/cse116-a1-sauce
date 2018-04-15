@@ -13,10 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -31,7 +28,9 @@ public class MainGUI  {
 	@SuppressWarnings("serial")
 	public static void run() {
 		
-		//this try catch block just makes it look less ugly
+		/*
+		 * makes GUI less ugly
+		 */
 		try {
     	    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
     	        if ("Nimbus".equals(info.getName())) {
@@ -42,7 +41,10 @@ public class MainGUI  {
     	} catch (Exception e) {
     	}
 		
-		    
+		/*
+		 * sets up game through Board's code and sets up JFrame things
+		 */
+		
 	    Board board = new Board();
 	    board.createBoard();
 	    board.gameStart("src/GameWords.txt");
@@ -59,6 +61,10 @@ public class MainGUI  {
 		JButton spymaster = new JButton("Back to Spymaster");
 		buttonPlace.add(submitClue);
 		buttonPlace.add(spymaster);
+		
+		/*
+		 * code to make a new game
+		 */
 		
 		Action newGameAction = new AbstractAction() {
 	    	@Override
@@ -105,33 +111,39 @@ public class MainGUI  {
 	    	
 	    	JMenuItem newGame = new JMenuItem(newGameAction);
 		
+	    	/*
+			 * allows the spymaster to input a clue and count (also has secret memes)
+			 */
+	    	
 		submitClue.addActionListener(new ActionListener(){
 	    	@Override
 	        public void actionPerformed(ActionEvent e){
 	    		if(spymasterTurn) {
 	    		Object[] possibilities = null;
-	    		String s = (String)JOptionPane.showInputDialog(
+	    		clue = (String)JOptionPane.showInputDialog(
 	    		                    frame,
 	    		                    "Type your clue below:\n",
-	    		                    "Customized Dialog",
+	    		                    "Enter Clue",
 	    		                    JOptionPane.PLAIN_MESSAGE,
 	    		                    null,
 	    		                    possibilities,
 	    		                    "");
-	    		while(board.checkIllegalClue(s)) {
-	    			possibilities = null;
-		    		s = (String)JOptionPane.showInputDialog(
+	    		while(board.checkIllegalClue(clue)) {
+		    		clue = (String)JOptionPane.showInputDialog(
 		    		                    frame,
 		    		                    "Illegal Clue, please choose another:\n",
-		    		                    "Customized Dialog",
+		    		                    "ILLEGAL CLUE",
 		    		                    JOptionPane.PLAIN_MESSAGE,
 		    		                    null,
 		    		                    possibilities,
 		    		                    "");
 	    		}
-	    		clue = s;
-	    		if(clue.equals("HERTZ")) {
-	    			
+	    		
+	    		/*
+	    		 * secret passwords for 4 easter egg memes
+	    		 */
+	    		
+	    		if(clue.equals("HERTZ")) {   			
 	    			JFrame memeWindow = new JFrame("A Meme that Hertz");
 	    			memeWindow.setLayout(new BorderLayout());
 	    			JPanel mainPanel = new JPanel(); 
@@ -229,24 +241,36 @@ public class MainGUI  {
 	    			Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 	    			memeWindow.setLocation(dim.width/2-memeWindow.getSize().width/2, dim.height/2-memeWindow.getSize().height/2);
 	    		}
+	    		
+	    		
 	    		clue = clue.toUpperCase();
 	    		clueShower.setText("Clue: " + clue);
+	    		
+	    		/*
+	    		 * makes a pop up window to select a count for the clue
+	    		 */
+	    		
 	    		Object[] possibilities2 = {"1","2","3","4","5","6","7","8","9"};
 	    		if(!board.isRedTeamTurn()) {
 	    			possibilities2[8] = null;
 	    		}
-				s = (String)JOptionPane.showInputDialog(
+				clue = (String)JOptionPane.showInputDialog(
 	    		                    frame,
 	    		                    "What is the count?\n",
-	    		                    "Customized Dialog",
+	    		                    "Select Count",
 	    		                    JOptionPane.PLAIN_MESSAGE,
 	    		                    null,
 	    		                    possibilities2,
 	    		                    "");
-				board.setCount(Integer.parseInt(s));
-	    		countShower.setText("Count: " + s);
+				board.setCount(Integer.parseInt(clue));
+	    		countShower.setText("Count: " + clue);
 	    		spymasterTurn = false;
 	    		gameWindow.removeAll();
+	    		
+	    		/*
+	    		 * adds new buttons to show for the guessers
+	    		 */
+	    		
 	    	for(int i = 0; i < 25; i++) {
 		    	JButton buttonToAdd = new JButton();
 		    	if(board.getBoard()[i].isNotRevealed()) {
@@ -434,6 +458,11 @@ public class MainGUI  {
 							    	}
 						    	}
 						    	});
+						    	
+						    	/*
+						    	 * sets button colors for the spymaster section
+						    	 */
+						    	
 						    		buttonToAdd.setBackground(Color.lightGray);
 						    		if(board.getBoard()[i].getPerson().equals("red")) {
 				    		    		buttonToAdd.setBackground(Color.red);
@@ -455,7 +484,13 @@ public class MainGUI  {
 			    		}
 			    	}
 		    	}
+
 		    	});
+		    	
+		    	/*
+		    	 * sets button colors for the guessing section
+		    	 */
+		    	
 		    	if(board.getBoard()[i].isNotRevealed()) {
 		    		buttonToAdd.setBackground(Color.lightGray);
 		    	}
@@ -483,6 +518,10 @@ public class MainGUI  {
 	    	}
 	    });
 		
+		/*
+		 * allows the guessers to forfeit their turn
+		 */
+		
 		spymaster.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -505,25 +544,6 @@ public class MainGUI  {
     		    countShower.setText("");
 				for(int i = 0; i < 25; i++) {
 			    	JButton buttonToAdd = new JButton();
-			    	for(int j = 0; j < 25; j++) {
-		    			if(buttonToAdd.getText().equals(board.getBoard()[j].getCodename())) {
-		    				if(board.getBoard()[j].getPerson().equals("assassin")) {
-		    					String whichTeamWon = board.whichTeamWonAssassin();
-		    					if(whichTeamWon.equals("red")) {
-					    			JOptionPane.showMessageDialog(frame,
-					    				    "The red team won!",
-					    				    "YOU CHOSE THE ASSASSIN",
-					    				    JOptionPane.PLAIN_MESSAGE);
-			    				}							    					
-		    					else {
-		    						JOptionPane.showMessageDialog(frame,
-					    				    "The blue team won!",
-					    				    "YOU CHOSE THE ASSASSIN",
-					    				    JOptionPane.PLAIN_MESSAGE);
-		    					}
-		    				}
-		    			}
-		    		}
 			    	if(board.getBoard()[i].isNotRevealed()) {
 				    	buttonToAdd.setText(board.getBoard()[i].getCodename());
 				    	}
@@ -532,54 +552,6 @@ public class MainGUI  {
 				    	}
 			    	buttonToAdd.setFocusable(false);
 			    	buttonToAdd.setFont(new Font(null, Font.BOLD, 12));
-			    	buttonToAdd.addActionListener(new ActionListener(){
-				    	@Override
-				        public void actionPerformed(ActionEvent e){
-				    		if(!spymasterTurn) {	
-				    		for(int i = 0; i < 25; i++) {
-				    			if(buttonToAdd.getText().equals(board.getBoard()[i].getCodename())) {
-				    				if(board.getBoard()[i].getPerson().equals("assassin")) {
-				    					String whichTeamWon = board.whichTeamWonAssassin();
-				    					Object [] options = {"Yes", "No"};
-				    					if(whichTeamWon.equals("red")) {
-							    			JOptionPane.showOptionDialog(frame,
-							    				    "The red team won!",
-							    				    "YOU CHOSE THE ASSASSIN",
-							    				    JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, null);
-					    				}								    					
-				    					else {
-				    						JOptionPane.showMessageDialog(frame,
-							    				    "The blue team won!",
-							    				    "YOU CHOSE THE ASSASSIN",
-							    				    JOptionPane.PLAIN_MESSAGE);
-				    					}
-				    				}
-				    			}
-				    		}
-				    		if(!board.checkGuess(buttonToAdd.getText())) {
-				    			if(board.isRedTeamTurn()) {
-				    				board.setRedTeamTurn(false);
-				    			}
-				    			else {
-				    				board.setRedTeamTurn(true);
-				    			}
-				    		}
-				    		if(buttonToAdd.getText() == " ") {
-				    			board.setCount(board.getCount() + 1);
-				    		}
-    			    		countShower.setText("Count: " + board.getCount());
-    			    		board.updateTurn();
-    			    		if(board.isRedTeamTurn()) {
-    			    	    	turn.setText("Current Turn: RED");
-    			    	    	turn.setForeground(Color.red);
-    			    	    }
-    			    	    else{
-    			    	    	turn.setText("Current Turn: BLUE");
-    			    	    	turn.setForeground(Color.blue);
-    			    	    }
-				    	}
-			    	}
-			    	});
 			    		buttonToAdd.setBackground(Color.lightGray);
 			    		if(board.getBoard()[i].getPerson().equals("red")) {
 	    		    		buttonToAdd.setBackground(Color.red);
@@ -601,6 +573,10 @@ public class MainGUI  {
 	    	    }
 		});
 		
+		/*
+		 * adds a file menu with "New Game" and "Exit" options
+		 */
+		
 	    JMenuBar menuBar = new JMenuBar();
 	    JMenu menu = new JMenu("File");
 	    if(board.isRedTeamTurn()) {
@@ -612,13 +588,19 @@ public class MainGUI  {
 	    	turn.setForeground(Color.blue);
 	    }
 	    	    
-	    
+	    /*
+		 * makes "Exit" work
+		 */
 	    
 	    JMenuItem exit = new JMenuItem(new AbstractAction("Exit"){
 	    	 public void actionPerformed(ActionEvent e) {
 	    		 System.exit(0);
 	    	    }
 	    	});
+	    
+	    /*
+		 * adds components to GUI
+		 */
 	    
 	    menu.add(newGame);
 	    menu.add(exit);
@@ -633,65 +615,16 @@ public class MainGUI  {
 		GridLayout grid = new GridLayout(5,5);
 		gameWindow.setLayout(grid);
 		
+		/*
+		 * initial game start
+		 */
+		
 		for(int i = 0; i < 25; i++) {
 			JButton buttonToAdd = new JButton();
 	    	buttonList.add(buttonToAdd);
-	    	if(board.getBoard()[i].isNotRevealed()) {
 	    	buttonToAdd.setText(board.getBoard()[i].getCodename());
-	    	}
-	    	else {
-	    		buttonToAdd.setText(" ");
-	    	}
 	    	buttonToAdd.setFocusable(false);
-	    	buttonToAdd.setFont(new Font(null, Font.BOLD, 12));
-	    	buttonToAdd.addActionListener(new ActionListener(){
-		    	@Override
-		        public void actionPerformed(ActionEvent e){
-		    		if(!spymasterTurn) {	
-		    		for(int i = 0; i < 25; i++) {
-		    			if(buttonToAdd.getText().equals(board.getBoard()[i].getCodename())) {
-		    				if(board.getBoard()[i].getPerson().equals("assassin")) {
-		    					String whichTeamWon = board.whichTeamWonAssassin();
-		    					Object [] options = {"Yes", "No"};
-		    					if(whichTeamWon.equals("red")) {
-					    			JOptionPane.showOptionDialog(frame,
-					    				    "The red team won!",
-					    				    "YOU CHOSE THE ASSASSIN",
-					    				    JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, null);
-			    				}							    					
-		    					else {
-		    						JOptionPane.showMessageDialog(frame,
-					    				    "The blue team won!",
-					    				    "YOU CHOSE THE ASSASSIN",
-					    				    JOptionPane.PLAIN_MESSAGE);
-		    					}
-		    				}
-		    			}
-		    		}
-		    		if(!board.checkGuess(buttonToAdd.getText())) {
-		    			if(board.isRedTeamTurn()) {
-		    				board.setRedTeamTurn(false);
-		    			}
-		    			else {
-		    				board.setRedTeamTurn(true);
-		    			}
-		    		}
-		    		if(buttonToAdd.getText() == " ") {
-		    			board.setCount(board.getCount() + 1);
-		    		}
-		    		countShower.setText("Count: " + board.getCount());
-		    		board.updateTurn();
-		    		if(board.isRedTeamTurn()) {
-		    	    	turn.setText("Current Turn: RED");
-		    	    	turn.setForeground(Color.red);
-		    	    }
-		    	    else{
-		    	    	turn.setText("Current Turn: BLUE");
-		    	    	turn.setForeground(Color.blue);
-		    	    }
-		    	}
-	    	}
-	    	});
+	    	buttonToAdd.setFont(new Font(null, Font.BOLD, 12));	    
 	    	if(board.getBoard()[i].getPerson().equals("red")) {
 	    		buttonToAdd.setBackground(Color.red);
 	    	}
@@ -707,6 +640,10 @@ public class MainGUI  {
 	    	}
 			gameWindow.add(buttonToAdd);
 		}
+		
+		/*
+		 * formats GUI
+		 */
 		
 		frame.add(gameWindow, BorderLayout.CENTER);
 		frame.add(buttonPlace, BorderLayout.PAGE_END);

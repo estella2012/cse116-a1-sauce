@@ -185,7 +185,7 @@ public class Board {
 				}
 			}
 		}
-		return false;
+		return true;
 	}
 	
 	
