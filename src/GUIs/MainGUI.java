@@ -10,12 +10,19 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.UIManager.LookAndFeelInfo;
 
-public class MainGUI {
+public class MainGUI  {
 	
 	private static String clue;
 	private static boolean spymasterTurn = true;
@@ -125,6 +132,106 @@ public class MainGUI {
 	    		clue = s;
 	    		if(clue.equals("HERTZ")) {
 	    			
+	    			JFrame memeWindow = new JFrame("A Meme that Hertz");
+	    			memeWindow.setLayout(new BorderLayout());
+	    			JPanel mainPanel = new JPanel(); 
+	    			JLabel pic1 = new JLabel(); 
+	    			ImageIcon a = new ImageIcon(); 
+	    			try {
+						BufferedImage img = ImageIO.read(new File(""));
+						a.setImage(img);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+	    	        
+	    			pic1.setIcon(a);
+	    			
+	    			mainPanel.add(pic1);
+	    			memeWindow.add(mainPanel);
+	    			
+	    			memeWindow.setVisible(true);
+	    			memeWindow.pack();
+	    		    memeWindow.setSize(600, 500);
+	    			Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+	    			memeWindow.setLocation(dim.width/2-memeWindow.getSize().width/2, dim.height/2-memeWindow.getSize().height/2);
+	    			
+	    		}
+	    		if(clue.equals("HAWAIIAN")) { 
+	    			
+	    			JFrame memeWindow = new JFrame("A Meme that Hertz");
+	    			memeWindow.setLayout(new BorderLayout());
+	    			JPanel mainPanel = new JPanel(); 
+	    			JLabel pic2 = new JLabel(); 
+	    			ImageIcon b = new ImageIcon(); 
+	    			try {
+						BufferedImage img = ImageIO.read(new File(""));
+						b.setImage(img);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+	    	        
+	    			pic2.setIcon(b);
+	    			
+	    			mainPanel.add(pic2);
+	    			memeWindow.add(mainPanel);
+	    			
+	    			memeWindow.setVisible(true);
+	    			memeWindow.pack();
+	    		    memeWindow.setSize(600, 500);
+	    			Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+	    			memeWindow.setLocation(dim.width/2-memeWindow.getSize().width/2, dim.height/2-memeWindow.getSize().height/2);
+	    		}
+	    		if(clue.equals("NEIGHBOR")) { 
+	    			JFrame memeWindow = new JFrame("A Meme that Hertz");
+	    			memeWindow.setLayout(new BorderLayout());
+	    			JPanel mainPanel = new JPanel(); 
+	    			JLabel pic3 = new JLabel(); 
+	    			ImageIcon c = new ImageIcon(); 
+	    			try {
+						BufferedImage img = ImageIO.read(new File(""));
+						c.setImage(img);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+	    	        
+	    			pic3.setIcon(c);
+	    			
+	    			mainPanel.add(pic3);
+	    			memeWindow.add(mainPanel);
+	    			
+	    			memeWindow.setVisible(true);
+	    			memeWindow.pack();
+	    		    memeWindow.setSize(600, 500);
+	    			Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+	    			memeWindow.setLocation(dim.width/2-memeWindow.getSize().width/2, dim.height/2-memeWindow.getSize().height/2);
+	    		}
+	    		if(clue.equals("TWITTER")) { 
+	    			JFrame memeWindow = new JFrame("A Meme that Hertz");
+	    			memeWindow.setLayout(new BorderLayout());
+	    			JPanel mainPanel = new JPanel(); 
+	    			JLabel pic4 = new JLabel(); 
+	    			ImageIcon d = new ImageIcon(); 
+	    			try {
+						BufferedImage img = ImageIO.read(new File(""));
+						d.setImage(img);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+	    	        
+	    			pic4.setIcon(d);
+	    			
+	    			mainPanel.add(pic4);
+	    			memeWindow.add(mainPanel);
+	    			
+	    			memeWindow.setVisible(true);
+	    			memeWindow.pack();
+	    		    memeWindow.setSize(600, 500);
+	    			Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+	    			memeWindow.setLocation(dim.width/2-memeWindow.getSize().width/2, dim.height/2-memeWindow.getSize().height/2);
 	    		}
 	    		clue = clue.toUpperCase();
 	    		clueShower.setText("Clue: " + clue);
