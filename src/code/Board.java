@@ -11,6 +11,10 @@ public class Board {
 	
 	//boolean used to keep track of which team's turn it is
 	private boolean redTeamTurn;
+	
+	private int turnCount;
+	
+	private boolean twoPlayerGame;
 	//the 25 locations
 	private Location[] board;
 	//the 25 words for each location
@@ -87,6 +91,8 @@ public class Board {
 		String blue = "blue";
 		String innocent = "innocent";
 		String assassin = "assassin";
+		String green = "green";
+		if(twoPlayerGame){
 		for(int i = 0; i < 9; i++) {
 			list.add(red);
 		}
@@ -98,7 +104,12 @@ public class Board {
 		}
 		list.add(assassin);
 		Collections.shuffle(list);
-		return list;	
+		return list;
+		}
+		else {
+			
+		}
+		return list;
 	}
 	
 	/*
@@ -273,5 +284,13 @@ public class Board {
 
 	public int getCount() {
 		return count;
+	}
+
+	public int getTurnCount() {
+		return turnCount;
+	}
+
+	public void setTurnCount(int turnCount) {
+		this.turnCount = turnCount;
 	}
 }
