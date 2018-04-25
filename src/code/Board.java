@@ -10,10 +10,11 @@ import java.util.Collections;
 public class Board {
 	
 	//boolean used to keep track of which team's turn it is
-	private boolean redTeamTurn;
+	//private boolean redTeamTurn;
 	
 	private int turnCount;
-	
+	private int firstTeamOut;
+	//0 is red, 1 is blue, 2 is green
 	private boolean twoPlayerGame;
 	//the 25 locations
 	private Location[] board;
@@ -29,6 +30,8 @@ public class Board {
 	private int bluesLeft;
 	//an int used to keep track of how many blue locations are left on the board
 	private int redsLeft;
+	
+	private int greensLeft;
 	
 	/*
 	 * Initializes wordList and personList
@@ -56,8 +59,15 @@ public class Board {
 			getBoard()[index] = new Location();
 			getBoard()[index].setNotRevealed(true);
 		}
+		if(twoPlayerGame) {
 		setRedsLeft(9);
 		setBluesLeft(8);
+		}
+		else {
+			setRedsLeft(6);
+			setBluesLeft(5);
+			setGreensLeft(5);
+		}
 		//setRedsLeft((int) Math.ceil(Math.random() * 100));
 	}
 	
@@ -103,12 +113,24 @@ public class Board {
 			list.add(innocent);
 		}
 		list.add(assassin);
-		Collections.shuffle(list);
-		return list;
 		}
 		else {
-			
+			for(int i = 0; i < 6; i++) {
+				list.add(red);
+			}
+			for(int i = 0; i < 5; i++) {
+				list.add(blue);
+			}
+			for(int i = 0; i < 5; i++) {
+				list.add(green);
+			}
+			for(int i = 0; i < 7; i++) {
+				list.add(innocent);
+			}
+			list.add(assassin);
+			list.add(assassin);	
 		}
+		Collections.shuffle(list);
 		return list;
 	}
 	
@@ -117,7 +139,7 @@ public class Board {
 	 * Red team will be the first to go.
 	 */
 	public void gameStart(String filename) {
-		setRedTeamTurn(true);
+		turnCount = 0;
 		assignPeople(filename);
 		count = 0;
 	}
@@ -170,28 +192,32 @@ public class Board {
 		for(int i = 0; i < 25; i++) {
 			if(guess.equals(getBoard()[i].getCodename())) {
 				getBoard()[i].setNotRevealed(false);
-				if(getBoard()[i].getPerson().equals("blue") && redTeamTurn == false) {
-					setBluesLeft(getBluesLeft() - 1);
-					return true;
-				}
-				if(getBoard()[i].getPerson().equals("red") && redTeamTurn == false) {
+				if(getBoard()[i].getPerson().equals("red")) {
 					setRedsLeft(getRedsLeft() - 1);
-					return false;
+					if(turnCount == 0) {
+						return true;
+					}
+					else return false;
 				}
-				if(getBoard()[i].getPerson().equals("blue") && redTeamTurn == true) {
+				if(getBoard()[i].getPerson().equals("blue")) {
 					setBluesLeft(getBluesLeft() - 1);
-					return false;
+					if(turnCount == 1) {
+						return true;
+					}
+					else return false;
 				}
-				if(getBoard()[i].getPerson().equals("red") && redTeamTurn == true) {
-					setRedsLeft(getRedsLeft() - 1);
-					return true;
+				if(getBoard()[i].getPerson().equals("green")) {
+					setGreensLeft(getGreensLeft() - 1);
+					if(turnCount == 2) {
+						return true;
+					}
+					else return false;
 				}
 				if(getBoard()[i].getPerson().equals("innocent")) {
 					count = 0;
 					return false;
 				}
 				if(getBoard()[i].getPerson().equals("assassin")) {
-					//whichTeamWonAssassin(); I think this line is something we'll need to work with when we create a MainGUI but for now it can't do much
 					return false;
 				}
 			}
@@ -212,38 +238,40 @@ public class Board {
 	
 	public void updateTurn() {
 		if(count <= 0) {
-			if(redTeamTurn) {
-				redTeamTurn = false;
-				count = 0;
+			turnCount ++;
+			count = 0;
+			if(twoPlayerGame) {
+				if(turnCount > 1) {
+					turnCount = 0;
+				}
 			}
 			else {
-				redTeamTurn = true;
-				count = 0;
+				if(turnCount > 2) {
+					turnCount = 0;
+				}
+			}
 			}
 		}
-	}
 	
 	/*
 	 * Getter and setter for whose turn it is.
 	 */
-	public boolean isRedTeamTurn() {
-		return redTeamTurn;
-	}
-
-	public void setRedTeamTurn(boolean redTeamTurn) {
-		this.redTeamTurn = redTeamTurn;
-	}
 	
 	/*
 	 * When the assassin is chosen, checks whose turn it is and returns whose team won as a result. 
 	 */
 	public String whichTeamWonAssassin() {
-		String winningTeam;
-		if(redTeamTurn) {
+		String winningTeam = "";
+		if(twoPlayerGame) {
+		if(turnCount == 0) {
 			winningTeam = "blue";
 		}
 		else {
 			winningTeam = "red";
+		}
+		}
+		else {
+			//need stuff for 3 player
 		}
 		return winningTeam;
 	}
@@ -292,5 +320,29 @@ public class Board {
 
 	public void setTurnCount(int turnCount) {
 		this.turnCount = turnCount;
+	}
+
+	public int getGreensLeft() {
+		return greensLeft;
+	}
+
+	public void setGreensLeft(int greensLeft) {
+		this.greensLeft = greensLeft;
+	}
+
+	public int getFirstTeamOut() {
+		return firstTeamOut;
+	}
+
+	public void setFirstTeamOut(int firstTeamOut) {
+		this.firstTeamOut = firstTeamOut;
+	}
+	
+	public boolean isTwoPlayerGame() {
+		return twoPlayerGame;
+	}
+	
+	public void setTwoPlayerGame(boolean game) {
+		twoPlayerGame = game;
 	}
 }

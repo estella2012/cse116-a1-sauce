@@ -94,6 +94,9 @@ public class MainGUI  {
 					if(board.getBoard()[i].getPerson().equals("blue")) {
 						buttonToAdd.setBackground(Color.cyan);
 					}
+					if(board.getBoard()[i].getPerson().equals("green")) {
+						buttonToAdd.setBackground(Color.green);
+					}
 					if(board.getBoard()[i].getPerson().equals("innocent")) {
 						buttonToAdd.setBackground(Color.yellow);
 					}
@@ -107,9 +110,58 @@ public class MainGUI  {
 				spymasterTurn = true;
 			}
 		};
-		newGameAction.putValue(Action.NAME, "New Game");
+		newGameAction.putValue(Action.NAME, "New Two Player Game");
 
 		JMenuItem newGame = new JMenuItem(newGameAction);
+		
+		Action newGameAction2 = new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				board.setTwoPlayerGame(false);
+				board.createBoard();
+				board.gameStart("src/GameWords.txt");
+				gameWindow.removeAll();
+				buttonList = new ArrayList<>();
+				clueShower.setText("");
+				countShower.setText("");
+				turn.setText("Current Turn: RED");
+				turn.setForeground(Color.red);
+				for(int i = 0; i < 25; i++) {
+					JButton buttonToAdd = new JButton();
+					buttonList.add(buttonToAdd);
+					if(board.getBoard()[i].isNotRevealed()) {
+						buttonToAdd.setText(board.getBoard()[i].getCodename());
+					}
+					else {
+						buttonToAdd.setText(" ");
+					}
+					buttonToAdd.setFocusable(false);
+					buttonToAdd.setFont(new Font(null, Font.BOLD, 12));
+					if(board.getBoard()[i].getPerson().equals("red")) {
+						buttonToAdd.setBackground(Color.red);
+					}
+					if(board.getBoard()[i].getPerson().equals("blue")) {
+						buttonToAdd.setBackground(Color.cyan);
+					}
+					if(board.getBoard()[i].getPerson().equals("green")) {
+						buttonToAdd.setBackground(Color.green);
+					}
+					if(board.getBoard()[i].getPerson().equals("innocent")) {
+						buttonToAdd.setBackground(Color.yellow);
+					}
+					if(board.getBoard()[i].getPerson().equals("assassin")) {
+						buttonToAdd.setBackground(Color.black);
+						buttonToAdd.setForeground(Color.white);
+					}
+					gameWindow.add(buttonToAdd);
+				}
+				gameWindow.validate();
+				spymasterTurn = true;
+			}
+		};
+		newGameAction2.putValue(Action.NAME, "New Three Player Game");
+
+		JMenuItem newGame2 = new JMenuItem(newGameAction2);
 
 		/*
 		 * allows the spymaster to input a clue and count (also has secret memes)
@@ -249,11 +301,21 @@ public class MainGUI  {
 					/*
 					 * makes a pop up window to select a count for the clue
 					 */
-
 					Object[] possibilities2 = {"1","2","3","4","5","6","7","8","9"};
-					if(!board.isRedTeamTurn()) {
+					if(board.isTwoPlayerGame()) {
+					if(board.getTurnCount() == 1) {
 						possibilities2[8] = null;
 					}
+					}
+					else {
+							possibilities2[6] = null;
+							possibilities2[7] = null;
+							possibilities2[8] = null;
+							if(!(board.getCount() == 0)) {
+								possibilities2[5] = null;
+							}
+						}
+					
 					clue = (String)JOptionPane.showInputDialog(
 							frame,
 							"What is the count?\n",
@@ -331,14 +393,19 @@ public class MainGUI  {
 									}
 									countShower.setText("Count: " + board.getCount());
 									board.updateTurn();
-									if(board.isRedTeamTurn()) {
+									if(board.getTurnCount() == 0) {
 										turn.setText("Current Turn: RED");
 										turn.setForeground(Color.red);
 									}
-									else{
+									else if (board.getTurnCount() == 1){
 										turn.setText("Current Turn: BLUE");
 										turn.setForeground(Color.blue);
 									}
+									else if(board.getTurnCount() == 2) {
+										turn.setText("Current Turn: GREEN");
+										turn.setForeground(Color.green);
+									}
+									
 									for(int i = 0; i < 25; i ++) {
 										if(buttonToAdd.getText().equals(board.getBoard()[i].getCodename())) {
 											if(board.getBoard()[i].getPerson().equals("red")) {
@@ -346,6 +413,9 @@ public class MainGUI  {
 											}
 											if(board.getBoard()[i].getPerson().equals("blue")) {
 												buttonToAdd.setBackground(Color.cyan);
+											}
+											if(board.getBoard()[i].getPerson().equals("green")) {
+												buttonToAdd.setBackground(Color.green);
 											}
 											if(board.getBoard()[i].getPerson().equals("innocent")) {
 												buttonToAdd.setBackground(Color.yellow);
@@ -359,14 +429,18 @@ public class MainGUI  {
 									}
 									countShower.setText("Count: " + board.getCount());
 									board.updateTurn();
-									if(board.isRedTeamTurn()) {
+									if(board.getTurnCount() == 0) {
 										turn.setText("Current Turn: RED");
 										turn.setForeground(Color.red);
 									}
-									else{
+									else if (board.getTurnCount() == 1){
 										turn.setText("Current Turn: BLUE");
 										turn.setForeground(Color.blue);
-									}		    		
+									}
+									else if(board.getTurnCount() == 2) {
+										turn.setText("Current Turn: GREEN");
+										turn.setForeground(Color.green);
+									}
 									if (board.getCount() == 0 || board.getBluesLeft() == 0 || board.getRedsLeft() == 0) {
 										if(board.gameWon()) {
 											Object [] options = {"New Game", "Quit"};
@@ -404,13 +478,17 @@ public class MainGUI  {
 										}
 
 										board.updateTurn();
-										if(board.isRedTeamTurn()) {
+										if(board.getTurnCount() == 0) {
 											turn.setText("Current Turn: RED");
 											turn.setForeground(Color.red);
 										}
-										else{
+										else if (board.getTurnCount() == 1){
 											turn.setText("Current Turn: BLUE");
 											turn.setForeground(Color.blue);
+										}
+										else if(board.getTurnCount() == 2) {
+											turn.setText("Current Turn: GREEN");
+											turn.setForeground(Color.green);
 										}
 										if(!board.gameWon()) {
 											JOptionPane.showMessageDialog(frame,
@@ -456,25 +534,25 @@ public class MainGUI  {
 															}
 														}
 														if(!board.checkGuess(buttonToAdd.getText())) {
-															if(board.isRedTeamTurn()) {
-																board.setRedTeamTurn(false);
-															}
-															else {
-																board.setRedTeamTurn(true);
-															}
+															board.setCount(0);
+															board.updateTurn();
 														}
 														if(buttonToAdd.getText() == " ") {
 															board.setCount(board.getCount() + 1);
 														}
 														countShower.setText("Count: " + board.getCount());
 														board.updateTurn();
-														if(board.isRedTeamTurn()) {
+														if(board.getTurnCount() == 0) {
 															turn.setText("Current Turn: RED");
 															turn.setForeground(Color.red);
 														}
-														else{
+														else if (board.getTurnCount() == 1){
 															turn.setText("Current Turn: BLUE");
 															turn.setForeground(Color.blue);
+														}
+														else if(board.getTurnCount() == 2) {
+															turn.setText("Current Turn: GREEN");
+															turn.setForeground(Color.green);
 														}
 													}
 												}
@@ -490,6 +568,9 @@ public class MainGUI  {
 											}
 											if(board.getBoard()[i].getPerson().equals("blue")) {
 												buttonToAdd.setBackground(Color.cyan);
+											}
+											if(board.getBoard()[i].getPerson().equals("green")) {
+												buttonToAdd.setBackground(Color.green);
 											}
 											if(board.getBoard()[i].getPerson().equals("innocent")) {
 												buttonToAdd.setBackground(Color.yellow);
@@ -522,6 +603,9 @@ public class MainGUI  {
 							if(board.getBoard()[i].getPerson().equals("blue")) {
 								buttonToAdd.setBackground(Color.cyan);
 							}
+							if(board.getBoard()[i].getPerson().equals("green")) {
+								buttonToAdd.setBackground(Color.green);
+							}
 							if(board.getBoard()[i].getPerson().equals("innocent")) {
 								buttonToAdd.setBackground(Color.yellow);
 							}
@@ -553,13 +637,17 @@ public class MainGUI  {
 						JOptionPane.PLAIN_MESSAGE);
 				board.setCount(0);
 				board.updateTurn();
-				if(board.isRedTeamTurn()) {
+				if(board.getTurnCount() == 0) {
 					turn.setText("Current Turn: RED");
 					turn.setForeground(Color.red);
 				}
-				else{
+				else if (board.getTurnCount() == 1){
 					turn.setText("Current Turn: BLUE");
 					turn.setForeground(Color.blue);
+				}
+				else if(board.getTurnCount() == 2) {
+					turn.setText("Current Turn: GREEN");
+					turn.setForeground(Color.green);
 				}
 				gameWindow.removeAll();
 				clueShower.setText("");
@@ -581,6 +669,9 @@ public class MainGUI  {
 					if(board.getBoard()[i].getPerson().equals("blue")) {
 						buttonToAdd.setBackground(Color.cyan);
 					}
+					if(board.getBoard()[i].getPerson().equals("green")) {
+						buttonToAdd.setBackground(Color.green);
+					}
 					if(board.getBoard()[i].getPerson().equals("innocent")) {
 						buttonToAdd.setBackground(Color.yellow);
 					}
@@ -601,13 +692,17 @@ public class MainGUI  {
 
 		JMenuBar menuBar = new JMenuBar();
 		JMenu menu = new JMenu("File");
-		if(board.isRedTeamTurn()) {
+		if(board.getTurnCount() == 0) {
 			turn.setText("Current Turn: RED");
 			turn.setForeground(Color.red);
 		}
-		else{
+		else if (board.getTurnCount() == 1){
 			turn.setText("Current Turn: BLUE");
 			turn.setForeground(Color.blue);
+		}
+		else if(board.getTurnCount() == 2) {
+			turn.setText("Current Turn: GREEN");
+			turn.setForeground(Color.green);
 		}
 
 		/*
@@ -625,6 +720,7 @@ public class MainGUI  {
 		 */
 
 		menu.add(newGame);
+		menu.add(newGame2);
 		menu.add(exit);
 		menuBar.add(menu);   
 		menuBar.add(Box.createHorizontalGlue());
@@ -640,7 +736,7 @@ public class MainGUI  {
 		/*
 		 * initial game start
 		 */
-
+		board.setTwoPlayerGame(true);
 		for(int i = 0; i < 25; i++) {
 			JButton buttonToAdd = new JButton();
 			buttonList.add(buttonToAdd);
@@ -652,6 +748,9 @@ public class MainGUI  {
 			}
 			if(board.getBoard()[i].getPerson().equals("blue")) {
 				buttonToAdd.setBackground(Color.cyan);
+			}
+			if(board.getBoard()[i].getPerson().equals("green")) {
+				buttonToAdd.setBackground(Color.green);
 			}
 			if(board.getBoard()[i].getPerson().equals("innocent")) {
 				buttonToAdd.setBackground(Color.yellow);
