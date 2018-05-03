@@ -69,6 +69,7 @@ public class MainGUI  {
 		Action newGameAction = new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				board.setTwoPlayerGame(true);
 				board.createBoard();
 				board.gameStart("src/GameWords.txt");
 				gameWindow.removeAll();
