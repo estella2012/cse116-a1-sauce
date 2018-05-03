@@ -246,5 +246,5 @@ public class BoardTest {
 
 	}
 
-	// Do not need a test for assignPeople as those methods within it have already been tested elsewhere.
+	
 }
