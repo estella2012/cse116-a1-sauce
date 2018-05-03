@@ -197,27 +197,34 @@ public class Board {
 					if(turnCount == 0) {
 						return true;
 					}
-					else return false;
+					else {
+						return false;
+					}
 				}
 				if(getBoard()[i].getPerson().equals("blue")) {
 					setBluesLeft(getBluesLeft() - 1);
 					if(turnCount == 1) {
 						return true;
 					}
-					else return false;
+					else {
+						return false;
+					}
 				}
 				if(getBoard()[i].getPerson().equals("green")) {
 					setGreensLeft(getGreensLeft() - 1);
 					if(turnCount == 2) {
 						return true;
 					}
-					else return false;
+					else {
+						return false;
+					}
 				}
 				if(getBoard()[i].getPerson().equals("innocent")) {
 					count = 0;
 					return false;
 				}
 				if(getBoard()[i].getPerson().equals("assassin")) {
+					count = 0;
 					return false;
 				}
 			}
