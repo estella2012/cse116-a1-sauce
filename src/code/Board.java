@@ -230,7 +230,7 @@ public class Board {
 	 * If one of the team's word left turn to zero, stop the game.
 	 */
 	public boolean gameWon() {
-			if(getRedsLeft() == 0 || getBluesLeft() == 0) {
+			if(getRedsLeft() == 0 || getBluesLeft() == 0 || getGreensLeft() == 0) {
 				return true;
 			}
 		return false;
@@ -238,7 +238,7 @@ public class Board {
 	
 	public void updateTurn() {
 		if(count <= 0) {
-			turnCount ++;
+			turnCount = turnCount + 1;
 			count = 0;
 			if(twoPlayerGame) {
 				if(turnCount > 1) {
