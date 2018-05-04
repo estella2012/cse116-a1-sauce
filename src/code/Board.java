@@ -244,21 +244,19 @@ public class Board {
 	}
 	
 	public void updateTurn() {
-		if(count <= 0) {
-			turnCount = turnCount + 1;
+		if (count <= 0) {
 			count = 0;
+			turnCount++;
 			if(twoPlayerGame) {
 				if(turnCount > 1) {
 					turnCount = 0;
 				}
 			}
-			else {
-				if(turnCount > 2) {
-					turnCount = 0;
-				}
-			}
-			}
+		   if(turnCount > 2) {
+			turnCount = 0;
+		 }	
 		}
+	}
 	
 	/*
 	 * Getter and setter for whose turn it is.
