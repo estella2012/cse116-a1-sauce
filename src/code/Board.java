@@ -251,20 +251,22 @@ public class Board {
 	}
 	
 	public void updateTurn() {
-		if (count <= 0) {
-			count = 0;
-			turnCount++;
-			if(twoPlayerGame) {
-				if(turnCount > 1) {
-					turnCount = 0;
-				}
+		if(count == 0) {
+			
+		turnCount++;
+		
+		if(twoPlayerGame) {
+			if(turnCount > 1) { 
+				turnCount = 0;
 			}
-		   if(turnCount > 2) {
-			turnCount = 0;
-		 }	
+		}
+		else { 
+			if (turnCount > 2) { 
+				turnCount = 0;
+			}
+	}
 		}
 	}
-	
 	/*
 	 * Getter and setter for whose turn it is.
 	 */
@@ -286,7 +288,7 @@ public class Board {
 			if(assassinsLeft == 2) {
 				assassinsLeft = assassinsLeft - 1;
 				teamOut = turnCount;
-				return "no one";
+				return "no one" + teamOut;
 			}
 			if(assassinsLeft == 1) {
 				if(turnCount == 0 && teamOut == 1 || turnCount == 1 && teamOut == 0) {

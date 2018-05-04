@@ -46,6 +46,7 @@ public class MainGUI  {
 		 */
 
 		Board board = new Board();
+		board.setTwoPlayerGame(true);
 		board.createBoard();
 		board.gameStart("src/GameWords.txt");
 		JFrame frame = new JFrame("CODENAMES");
@@ -206,7 +207,6 @@ public class MainGUI  {
 							BufferedImage img = ImageIO.read(new File("memes/hertz memes.png"));
 							a.setImage(img);
 						} catch (IOException e1) {
-							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
 
@@ -232,7 +232,6 @@ public class MainGUI  {
 							BufferedImage img = ImageIO.read(new File("memes/Steal his look.png"));
 							b.setImage(img);
 						} catch (IOException e1) {
-							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
 
@@ -256,7 +255,6 @@ public class MainGUI  {
 							BufferedImage img = ImageIO.read(new File("memes/Vapowave.png"));
 							c.setImage(img);
 						} catch (IOException e1) {
-							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
 
@@ -280,7 +278,6 @@ public class MainGUI  {
 							BufferedImage img = ImageIO.read(new File("memes/if you dont love me.png"));
 							d.setImage(img);
 						} catch (IOException e1) {
-							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
 
@@ -312,7 +309,7 @@ public class MainGUI  {
 							possibilities2[6] = null;
 							possibilities2[7] = null;
 							possibilities2[8] = null;
-							if(!(board.getCount() == 0)) {
+							if(!(board.getTurnCount() == 0)) {
 								possibilities2[5] = null;
 							}
 						}
@@ -353,6 +350,7 @@ public class MainGUI  {
 											if(board.getBoard()[i].getPerson().equals("assassin")) {
 												String whichTeamWon = board.whichTeamWonAssassin();
 												Object [] options = {"Start New Game", "Quit"};
+												if(board.isTwoPlayerGame()) {
 												if(whichTeamWon.equals("red")) {
 													int input = JOptionPane.showOptionDialog(frame,
 															"<html>The red team won!<br> What would you like to do?</html>",
@@ -368,7 +366,7 @@ public class MainGUI  {
 														System.exit(0);
 													}
 												}								    					
-												else {
+												if(whichTeamWon.equals("blue")) {
 													int input = JOptionPane.showOptionDialog(frame,
 															"<html>The blue team won!<br> What would you like to do?</html>",
 															"YOU CHOSE THE ASSASSIN",
@@ -384,6 +382,42 @@ public class MainGUI  {
 													}
 												}
 											}
+											else {
+												if(whichTeamWon.equals("no one0")) {
+													JOptionPane.showMessageDialog(frame,
+															"The red team is out! The blue and green teams may continue to play.",
+															"YOU CHOSE THE ASSASSIN",
+															JOptionPane.PLAIN_MESSAGE);
+												}
+												if(whichTeamWon.equals("no one1")) {
+													JOptionPane.showMessageDialog(frame,
+															"The blue team is out! The red and green teams may continue to play.",
+															"YOU CHOSE THE ASSASSIN",
+															JOptionPane.PLAIN_MESSAGE);
+												}
+												if(whichTeamWon.equals("no one2")) {
+													JOptionPane.showMessageDialog(frame,
+															"The green team is out! The red and blue teams may continue to play.",
+															"YOU CHOSE THE ASSASSIN",
+															JOptionPane.PLAIN_MESSAGE);
+												}
+												if(whichTeamWon.equals("green")) {
+													int input = JOptionPane.showOptionDialog(frame,
+															"<html>The green team won!<br> What would you like to do?</html>",
+															"YOU CHOSE THE ASSASSIN",
+															JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, null);
+													if(input == JOptionPane.YES_OPTION) {
+														newGame2.doClick();
+														spymasterTurn = false;
+														spymaster.doClick();
+														spymasterTurn = true;
+													}						    			
+													else {
+														System.exit(0);
+													}
+												}
+											}
+											}
 										}
 									}
 									if(!board.checkGuess(buttonToAdd.getText())) {
@@ -393,7 +427,7 @@ public class MainGUI  {
 										board.setCount(board.getCount() + 1);
 									}
 									countShower.setText("Count: " + board.getCount());
-									board.updateTurn();
+									//board.updateTurn();
 									if(board.getTurnCount() == 0) {
 										turn.setText("Current Turn: RED");
 										turn.setForeground(Color.red);
@@ -429,7 +463,7 @@ public class MainGUI  {
 										}
 									}
 									countShower.setText("Count: " + board.getCount());
-									board.updateTurn();
+									//board.updateTurn();
 									if(board.getTurnCount() == 0) {
 										turn.setText("Current Turn: RED");
 										turn.setForeground(Color.red);
@@ -450,6 +484,7 @@ public class MainGUI  {
 														"<html>The blue team won!<br> What would you like to do?</html>",
 														"GAME OVER",
 														JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, null);
+												if(board.isTwoPlayerGame()) {
 												if(input == JOptionPane.YES_OPTION) {
 													newGame.doClick();
 													spymasterTurn = false;
@@ -459,6 +494,18 @@ public class MainGUI  {
 												else {
 													System.exit(0);
 												}
+												}
+												else {
+													if(input == JOptionPane.YES_OPTION) {
+														newGame2.doClick();
+														spymasterTurn = false;
+														spymaster.doClick();
+														spymasterTurn = true;
+													}
+													else {
+														System.exit(0);
+													}
+												}
 											}
 										}
 										if(board.getRedsLeft() == 0) {
@@ -467,15 +514,28 @@ public class MainGUI  {
 													"<html>The red team won!<br> What would you like to do?</html>",
 													"GAME OVER",
 													JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, null);
-											if(input == JOptionPane.YES_OPTION) {
-												newGame.doClick();
-												spymasterTurn = false;
-												spymaster.doClick();
-												spymasterTurn = true;
-											}
-											else {
-												System.exit(0);
-											}
+											if(board.isTwoPlayerGame()) {
+												if(input == JOptionPane.YES_OPTION) {
+													newGame.doClick();
+													spymasterTurn = false;
+													spymaster.doClick();
+													spymasterTurn = true;
+												}
+												else {
+													System.exit(0);
+												}
+												}
+												else {
+													if(input == JOptionPane.YES_OPTION) {
+														newGame2.doClick();
+														spymasterTurn = false;
+														spymaster.doClick();
+														spymasterTurn = true;
+													}
+													else {
+														System.exit(0);
+													}
+												}
 										}
 
 										board.updateTurn();
@@ -491,12 +551,10 @@ public class MainGUI  {
 											turn.setText("Current Turn: GREEN");
 											turn.setForeground(Color.green);
 										}
-										if(!board.gameWon()) {
 											JOptionPane.showMessageDialog(frame,
 													"<html>Please return the computer to the Spymasters<br> If you are the Spymaster, please press 'OK'.</html>",
 													"TURN OVER",
 													JOptionPane.PLAIN_MESSAGE);
-										}
 										gameWindow.removeAll();
 										clueShower.setText("");
 										countShower.setText("");
@@ -536,13 +594,12 @@ public class MainGUI  {
 														}
 														if(!board.checkGuess(buttonToAdd.getText())) {
 															board.setCount(0);
-															board.updateTurn();
 														}
 														if(buttonToAdd.getText() == " ") {
 															board.setCount(board.getCount() + 1);
 														}
 														countShower.setText("Count: " + board.getCount());
-													    board.updateTurn();
+													    //board.updateTurn();
 														if(board.getTurnCount() == 0) {
 															turn.setText("Current Turn: RED");
 															turn.setForeground(Color.red);
@@ -632,6 +689,7 @@ public class MainGUI  {
 		spymaster.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if(!spymasterTurn || spymasterTurn) {
 				JOptionPane.showMessageDialog(frame,
 						"<html>Please return the computer to the Spymasters<br> If you are the Spymaster, please press 'OK'.</html>",
 						"TURN OVER",
@@ -685,6 +743,7 @@ public class MainGUI  {
 				gameWindow.validate();
 				spymasterTurn = true;
 			}
+			}
 		});
 
 		/*
@@ -737,7 +796,6 @@ public class MainGUI  {
 		/*
 		 * initial game start
 		 */
-		board.setTwoPlayerGame(true);
 		for(int i = 0; i < 25; i++) {
 			JButton buttonToAdd = new JButton();
 			buttonList.add(buttonToAdd);
