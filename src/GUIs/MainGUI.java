@@ -542,7 +542,7 @@ public class MainGUI  {
 															board.setCount(board.getCount() + 1);
 														}
 														countShower.setText("Count: " + board.getCount());
-														board.updateTurn();
+													    board.updateTurn();
 														if(board.getTurnCount() == 0) {
 															turn.setText("Current Turn: RED");
 															turn.setForeground(Color.red);
