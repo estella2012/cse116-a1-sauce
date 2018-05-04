@@ -33,6 +33,10 @@ public class Board {
 	
 	private int greensLeft;
 	
+	private int assassinsLeft;
+	
+	private int teamOut;
+	
 	/*
 	 * Initializes wordList and personList
 	 */
@@ -139,6 +143,9 @@ public class Board {
 	 * Red team will be the first to go.
 	 */
 	public void gameStart(String filename) {
+		if(!twoPlayerGame) {
+			assassinsLeft = 2;
+		}
 		turnCount = 0;
 		assignPeople(filename);
 		count = 0;
@@ -276,7 +283,22 @@ public class Board {
 		}
 		}
 		else {
-			//need stuff for 3 player
+			if(assassinsLeft == 2) {
+				assassinsLeft = assassinsLeft - 1;
+				teamOut = turnCount;
+				return "no one";
+			}
+			if(assassinsLeft == 1) {
+				if(turnCount == 0 && teamOut == 1 || turnCount == 1 && teamOut == 0) {
+					return "green";
+				}
+				if(turnCount == 0 && teamOut == 2 || turnCount == 2 && teamOut == 0) {
+					return "blue";
+				}
+				if(turnCount == 1 && teamOut == 2 || turnCount == 2 && teamOut == 1) {
+					return "red";
+				}
+			}
 		}
 		return winningTeam;
 	}
@@ -349,5 +371,13 @@ public class Board {
 	
 	public void setTwoPlayerGame(boolean game) {
 		twoPlayerGame = game;
+	}
+	
+	public int getTeamOut() {
+		return teamOut;
+	}
+	
+	public void setTeamOut(int teamOut) {
+		this.teamOut = teamOut;
 	}
 }
