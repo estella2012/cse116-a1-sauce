@@ -148,15 +148,31 @@ public class BoardTest {
 	 * Checks that whichTeamWonAssassin will return the proper team in the case of the Assassin being chosen.
 	 */
 	@Test
-	public void testWhichTeamWonAssassin() {
+	public void testWhichTeamWonAssassinTwoPL() {
 		Board br = new Board();
 		br.createBoard();
 		br.gameStart("src/GameWords.txt");
 
 		br.setTurnCount(0);
-		assertEquals("blue", br.whichTeamWonAssassin());
+		assertEquals("red team turn","blue", br.whichTeamWonAssassin());
+		
+		br.setTurnCount(1);
+		assertEquals("blue team turn","red", br.whichTeamWonAssassin());
+	}
+	
+	@Test
+	public void testWhichTeamWonAssassinTrePL() {
+		Board br = new Board();
+		br.createBoard();
+		br.gameStart("src/GameWords.txt");
 
-		assertEquals("red", br.whichTeamWonAssassin());
+		br.setTurnCount(0);
+		br.setFirstTeamOut(1);
+		assertEquals("red team turn, blue is out, green should won", "green", br.whichTeamWonAssassin());
+		
+		br.setTurnCount(1);
+		br.setFirstTeamOut(2);
+		assertEquals("blue team turn, green is out, red is won", "red", br.whichTeamWonAssassin());
 	}
 
 	//	/*
