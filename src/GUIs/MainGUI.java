@@ -291,6 +291,106 @@ public class MainGUI  {
 						Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 						memeWindow.setLocation(dim.width/2-memeWindow.getSize().width/2, dim.height/2-memeWindow.getSize().height/2);
 					}
+					
+					if(clue.equals("GOTG")) {   			
+						JFrame memeWindow = new JFrame("A Meme that Hertz");
+						memeWindow.setLayout(new BorderLayout());
+						JPanel mainPanel = new JPanel(); 
+						JLabel pic1 = new JLabel(); 
+						ImageIcon a = new ImageIcon(); 
+						try {
+							BufferedImage img = ImageIO.read(new File("memes/GotG CSE meme smol.png"));
+							a.setImage(img);
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
+
+						pic1.setIcon(a);
+
+						mainPanel.add(pic1);
+						memeWindow.add(mainPanel);
+
+						memeWindow.setVisible(true);
+						memeWindow.pack();
+						Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+						memeWindow.setLocation(dim.width/2-memeWindow.getSize().width/2, dim.height/2-memeWindow.getSize().height/2);
+
+					}
+					
+					if(clue.equals("JAVA")) {   			
+						JFrame memeWindow = new JFrame("A Meme that Hertz");
+						memeWindow.setLayout(new BorderLayout());
+						JPanel mainPanel = new JPanel(); 
+						JLabel pic1 = new JLabel(); 
+						ImageIcon a = new ImageIcon(); 
+						try {
+							BufferedImage img = ImageIO.read(new File("memes/this looks hard.png"));
+							a.setImage(img);
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
+
+						pic1.setIcon(a);
+
+						mainPanel.add(pic1);
+						memeWindow.add(mainPanel);
+
+						memeWindow.setVisible(true);
+						memeWindow.pack();
+						Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+						memeWindow.setLocation(dim.width/2-memeWindow.getSize().width/2, dim.height/2-memeWindow.getSize().height/2);
+
+					}
+					
+					if(clue.equals("HEXAGON")) {   			
+						JFrame memeWindow = new JFrame("A Meme that Hertz");
+						memeWindow.setLayout(new BorderLayout());
+						JPanel mainPanel = new JPanel(); 
+						JLabel pic1 = new JLabel(); 
+						ImageIcon a = new ImageIcon(); 
+						try {
+							BufferedImage img = ImageIO.read(new File("memes/hexagon.png"));
+							a.setImage(img);
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
+
+						pic1.setIcon(a);
+
+						mainPanel.add(pic1);
+						memeWindow.add(mainPanel);
+
+						memeWindow.setVisible(true);
+						memeWindow.pack();
+						Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+						memeWindow.setLocation(dim.width/2-memeWindow.getSize().width/2, dim.height/2-memeWindow.getSize().height/2);
+
+					}
+					
+					if(clue.equals("FIST")) {   			
+						JFrame memeWindow = new JFrame("A Meme that Hertz");
+						memeWindow.setLayout(new BorderLayout());
+						JPanel mainPanel = new JPanel(); 
+						JLabel pic1 = new JLabel(); 
+						ImageIcon a = new ImageIcon(); 
+						try {
+							BufferedImage img = ImageIO.read(new File("memes/fist.png"));
+							a.setImage(img);
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
+
+						pic1.setIcon(a);
+
+						mainPanel.add(pic1);
+						memeWindow.add(mainPanel);
+
+						memeWindow.setVisible(true);
+						memeWindow.pack();
+						Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+						memeWindow.setLocation(dim.width/2-memeWindow.getSize().width/2, dim.height/2-memeWindow.getSize().height/2);
+
+					}
 
 
 					clue = clue.toUpperCase();
