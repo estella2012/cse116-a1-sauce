@@ -13,6 +13,9 @@ createListOfPersons in Board and testCreateListOfPersons in BoardTest
 Creates List containing randomly generated assignments for each of the 9 Red Agents, 8 Blue Agents, 7 Innocent Bystanders, and 1 Assassin [10 points] (hint: Java has some methods that could be a starting point for how to randomly order locations)
 assignPerson in Board, no test because it just runs methods we've already tested
 
+Creates a List containing randomly generated assignments for each of the 6 Red Agents, 5 Blue Agents, 5 Green Agents, 7 Innocent Bystanders, and 2 Assassins [3 points]
+assignPerson in Board, testCreateListOfPersons3P in BoardTest
+
 When game started, it is Red team's move and each of Board's 25 Location instances is assigned a codename, Person, and is Not Revealed [15 points]
 gameStart in Board, gameStartTest in BoardTest
 
@@ -27,3 +30,9 @@ gameWon in Board, gameWonTest in BoardTest
 
 Method defined which correctly returns which team did not lose (i.e., win) when the Assassin was revealed [10 points]
 whichTeamWonAssassin in Board, testWhichTeamWonAssassin in BoardTest
+
+Method defined which correctly returns which team wins once the 2nd Assassin is revealed
+whichTeamWonAssassin in Board, testWhichTeamWonAssassinTrePL in BoardTest
+
+Method which returns which is used at the end of a turn to determine the team whose move is next (this must include the possibility that the next team in the 3-team rotation had previously Revealed an Assassin) [7 points]
+updateTurn in Board, testUpdateTurn3P

@@ -13,7 +13,6 @@ public class Board {
 	//private boolean redTeamTurn;
 	
 	private int turnCount;
-	private int firstTeamOut;
 	//0 is red, 1 is blue, 2 is green
 	private boolean twoPlayerGame;
 	//the 25 locations
@@ -96,7 +95,8 @@ public class Board {
 		}
 	
 	/*
-	 * Puts 9 red, 8 blue, 7 innocent and 1 assassin into a list, shuffles it,
+	 * if two-player,Puts 9 red, 8 blue, 7 innocent and 1 assassin into a list, shuffles it,
+	 * if three-player, Puts 6 red, 5 blue, 5 green, 7 innocents, and 2 assassins 
 	 * which will create a list that can randomly assign a person to the codename in a later method.
 	 */
 	public ArrayList<String> createListOfPersons(){
@@ -140,12 +140,13 @@ public class Board {
 	
 	/*
 	 * Initiate everything to begin the game.
-	 * Red team will be the first to go.
+	 * Red team will be the first to go in both 2player and 3player.
 	 */
 	public void gameStart(String filename) {
 		if(!twoPlayerGame) {
 			assassinsLeft = 2;
 		}
+		teamOut = 7;
 		turnCount = 0;
 		assignPeople(filename);
 		count = 0;
@@ -165,7 +166,7 @@ public class Board {
 	}
 	
 	/*
-	 * Check is the codename revealed or not, if it is not revealed, that 
+	 * Check if the codename is revealed or not, if it is not revealed, that 
 	 * is not a legal clue
 	 */
 	public boolean checkIllegalClue(String clue) {
@@ -244,12 +245,15 @@ public class Board {
 	 * If one of the team's word left turn to zero, stop the game.
 	 */
 	public boolean gameWon() {
-			if(getRedsLeft() == 0 || getBluesLeft() == 0 || getGreensLeft() == 0) {
+			if((getRedsLeft() == 0 && teamOut != 0)|| (getBluesLeft() == 0 && teamOut != 1)|| (getGreensLeft() == 0 && teamOut != 2)) {
 				return true;
 			}
 		return false;
 	}
-	
+	/*
+	 * updates the turnCount by one, if it goes over the amount for its respective gamemode it goes back to 0 (redteam)
+	 * if the team is out (chose the first assassin in 3Team game) then skips their turn 
+	 */
 	public void updateTurn() {
 		if(count == 0) {
 			
@@ -265,6 +269,9 @@ public class Board {
 				turnCount = 0;
 			}
 	}
+		if (turnCount == teamOut) {
+			updateTurn();
+		}
 		}
 	}
 	/*
@@ -357,14 +364,6 @@ public class Board {
 
 	public void setGreensLeft(int greensLeft) {
 		this.greensLeft = greensLeft;
-	}
-
-	public int getFirstTeamOut() {
-		return firstTeamOut;
-	}
-
-	public void setFirstTeamOut(int firstTeamOut) {
-		this.firstTeamOut = firstTeamOut;
 	}
 	
 	public boolean isTwoPlayerGame() {

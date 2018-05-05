@@ -62,8 +62,30 @@ public class BoardTest {
 	 * Checks that createListOfPersons makes a randomized list of assignments.
 	 */
 	@Test
-	public void testCreateListOfPersons() {
+	public void testCreateListOfPersons2P() {
 		Board bob = new Board();
+		ArrayList<String> list = new ArrayList<String>();
+		list = bob.createListOfPersons();
+		//test list size
+		assertEquals(25, list.size());
+		//test shuffle
+
+		String tester = "redredredredred";
+		String testee = "";
+
+		for(int i = 0; i < 5; i++) {
+			testee += list.get(i);
+		}
+		assertFalse(tester.equals(testee));
+	}
+	/*
+	 * Checks that createListOfPersons makes a randomized list of assignments in a 3team game.
+	 */
+	
+	@Test
+	public void testCreateListOfPersons3P() {
+		Board bob = new Board();
+		bob.setTwoPlayerGame(false);
 		ArrayList<String> list = new ArrayList<String>();
 		list = bob.createListOfPersons();
 		//test list size
@@ -132,17 +154,31 @@ public class BoardTest {
 	/*
 	 * Tests that the turn can change.
 	 */
-	//	@Test
-	//	public void testSetRedTeamTurn() {
-	//		Board br = new Board();
-	//		br.createBoard();
-	//		br.gameStart("src/GameWords.txt");
-	//		assertTrue(br.getTeamCount() == 0);
-	//		br.
-	//		assertFalse(br.isRedTeamTurn());
-	//		br.setRedTeamTurn(true);
-	//		assertTrue(br.isRedTeamTurn());
-	//	}
+	@Test
+	public void testUpdateTurn2P() {
+		Board br = new Board();
+		br.setTwoPlayerGame(true);
+		br.createBoard();
+		br.gameStart("src/GameWords.txt");
+		br.updateTurn();
+		assertEquals(1,br.getTurnCount());
+		br.updateTurn();
+		assertEquals(0,br.getTurnCount());
+	}
+	
+	@Test
+	public void testUpdateTurn3P() {
+		Board br = new Board();
+		br.setTwoPlayerGame(false);
+		br.createBoard();
+		br.gameStart("src/GameWords.txt");
+		br.updateTurn();
+		assertEquals(1,br.getTurnCount());
+		br.updateTurn();
+		assertEquals(2,br.getTurnCount());
+		br.updateTurn();
+		assertEquals(0,br.getTurnCount());
+	}
 
 	/*
 	 * Checks that whichTeamWonAssassin will return the proper team in the case of the Assassin being chosen.
@@ -150,6 +186,7 @@ public class BoardTest {
 	@Test
 	public void testWhichTeamWonAssassinTwoPL() {
 		Board br = new Board();
+		br.setTwoPlayerGame(true);
 		br.createBoard();
 		br.gameStart("src/GameWords.txt");
 
@@ -163,34 +200,16 @@ public class BoardTest {
 	@Test
 	public void testWhichTeamWonAssassinTrePL() {
 		Board br = new Board();
+		br.setTwoPlayerGame(false);
 		br.createBoard();
 		br.gameStart("src/GameWords.txt");
 
 		br.setTurnCount(0);
-		br.setFirstTeamOut(1);
-		assertEquals("red team turn, blue is out, green should won", "green", br.whichTeamWonAssassin());
-		
+		assertEquals("no one0", br.whichTeamWonAssassin());
 		br.setTurnCount(1);
-		br.setFirstTeamOut(2);
-		assertEquals("blue team turn, green is out, red is won", "red", br.whichTeamWonAssassin());
+		assertEquals("green", br.whichTeamWonAssassin());
 	}
 
-	//	/*
-	//	 * Checks that gameStart properly runs the methods it uses.
-	//	 */
-	//	@Test
-	//	public void gameStartTest() {
-	//		Board br = new Board();
-	//		br.createBoard();
-	//		br.gameStart("src/GameWords.txt");
-	//		assertTrue(br.isRedTeamTurn());
-	//		for(int index = 0; index < 25; index++) {
-	//			assertNotNull(br.getBoard()[index].getCodename());
-	//			assertNotNull(br.getBoard()[index].getPerson());
-	//			assertTrue(br.getBoard()[index].isNotRevealed());
-	//		}
-	//	}
-	//	
 	/*
 	 * Checks that createBoard makes a board of 25 locations with the right amount of agents.
 	 */
@@ -232,7 +251,7 @@ public class BoardTest {
 		br.getBoard()[4].setCodename("food");
 		br.getBoard()[4].setPerson("red");
 		br.setTurnCount(2);
-		assertFalse("Person = red, turn = green",br.checkGuess("car")); 
+		assertFalse("Person = red, turn = green",br.checkGuess("food")); 
 		
 		br.getBoard()[5].setCodename("boolean");
 		br.getBoard()[5].setPerson("red");

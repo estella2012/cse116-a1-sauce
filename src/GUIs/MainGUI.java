@@ -112,7 +112,7 @@ public class MainGUI  {
 				spymasterTurn = true;
 			}
 		};
-		newGameAction.putValue(Action.NAME, "New Two Player Game");
+		newGameAction.putValue(Action.NAME, "New Two Team Game");
 
 		JMenuItem newGame = new JMenuItem(newGameAction);
 		
@@ -161,7 +161,7 @@ public class MainGUI  {
 				spymasterTurn = true;
 			}
 		};
-		newGameAction2.putValue(Action.NAME, "New Three Player Game");
+		newGameAction2.putValue(Action.NAME, "New Three Team Game");
 
 		JMenuItem newGame2 = new JMenuItem(newGameAction2);
 
@@ -410,6 +410,39 @@ public class MainGUI  {
 														newGame2.doClick();
 														spymasterTurn = false;
 														spymaster.doClick();
+														spymaster.doClick();
+														spymasterTurn = true;
+													}						    			
+													else {
+														System.exit(0);
+													}
+												}
+												if(whichTeamWon.equals("blue")) {
+													int input = JOptionPane.showOptionDialog(frame,
+															"<html>The blue team won!<br> What would you like to do?</html>",
+															"YOU CHOSE THE ASSASSIN",
+															JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, null);
+													if(input == JOptionPane.YES_OPTION) {
+														newGame2.doClick();
+														spymasterTurn = false;
+														spymaster.doClick();
+														spymaster.doClick();
+														spymasterTurn = true;
+													}						    			
+													else {
+														System.exit(0);
+													}
+												}
+												if(whichTeamWon.equals("red")) {
+													int input = JOptionPane.showOptionDialog(frame,
+															"<html>The red team won!<br> What would you like to do?</html>",
+															"YOU CHOSE THE ASSASSIN",
+															JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, null);
+													if(input == JOptionPane.YES_OPTION) {
+														newGame2.doClick();
+														spymasterTurn = false;
+														spymaster.doClick();
+														spymaster.doClick();
 														spymasterTurn = true;
 													}						    			
 													else {
@@ -427,7 +460,6 @@ public class MainGUI  {
 										board.setCount(board.getCount() + 1);
 									}
 									countShower.setText("Count: " + board.getCount());
-									//board.updateTurn();
 									if(board.getTurnCount() == 0) {
 										turn.setText("Current Turn: RED");
 										turn.setForeground(Color.red);
@@ -463,7 +495,6 @@ public class MainGUI  {
 										}
 									}
 									countShower.setText("Count: " + board.getCount());
-									//board.updateTurn();
 									if(board.getTurnCount() == 0) {
 										turn.setText("Current Turn: RED");
 										turn.setForeground(Color.red);
@@ -476,10 +507,10 @@ public class MainGUI  {
 										turn.setText("Current Turn: GREEN");
 										turn.setForeground(Color.green);
 									}
-									if (board.getCount() == 0 || board.getBluesLeft() == 0 || board.getRedsLeft() == 0) {
+									if (board.getCount() == 0 || board.getBluesLeft() == 0 || board.getRedsLeft() == 0 || board.getGreensLeft() == 0) { //never touch this if statement if you value your sanity
 										if(board.gameWon()) {
 											Object [] options = {"New Game", "Quit"};
-											if(board.getBluesLeft() == 0) {
+											if(board.getBluesLeft() == 0 && board.getTeamOut() != 1) {
 												int input = JOptionPane.showOptionDialog(frame,
 														"<html>The blue team won!<br> What would you like to do?</html>",
 														"GAME OVER",
@@ -500,6 +531,7 @@ public class MainGUI  {
 														newGame2.doClick();
 														spymasterTurn = false;
 														spymaster.doClick();
+														spymaster.doClick();
 														spymasterTurn = true;
 													}
 													else {
@@ -508,7 +540,7 @@ public class MainGUI  {
 												}
 											}
 										}
-										if(board.getRedsLeft() == 0) {
+										else if(board.getRedsLeft() == 0 && board.getTeamOut() != 0) {
 											Object [] options = {"New Game", "Quit"};
 											int input = JOptionPane.showOptionDialog(frame,
 													"<html>The red team won!<br> What would you like to do?</html>",
@@ -530,12 +562,32 @@ public class MainGUI  {
 														newGame2.doClick();
 														spymasterTurn = false;
 														spymaster.doClick();
+														spymaster.doClick();
 														spymasterTurn = true;
 													}
 													else {
 														System.exit(0);
 													}
 												}
+										}
+										else if(board.getGreensLeft() == 0 && board.getTeamOut() != 2 && !board.isTwoPlayerGame()) {
+											Object [] options = {"New Game", "Quit"};
+											int input = JOptionPane.showOptionDialog(frame,
+													"<html>The green team won!<br> What would you like to do?</html>",
+													"GAME OVER",
+													JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, null);
+													if(input == JOptionPane.YES_OPTION) {
+														newGame2.doClick();
+														board.setTurnCount(0);
+														if(board.getTurnCount() == 0) {
+															turn.setText("Current Turn: RED");
+															turn.setForeground(Color.red);
+														}
+													}
+													else {
+														System.exit(0);
+													}
+												
 										}
 
 										board.updateTurn();
@@ -599,7 +651,6 @@ public class MainGUI  {
 															board.setCount(board.getCount() + 1);
 														}
 														countShower.setText("Count: " + board.getCount());
-													    //board.updateTurn();
 														if(board.getTurnCount() == 0) {
 															turn.setText("Current Turn: RED");
 															turn.setForeground(Color.red);
@@ -689,7 +740,7 @@ public class MainGUI  {
 		spymaster.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(!spymasterTurn || spymasterTurn) {
+				if(!spymasterTurn) {
 				JOptionPane.showMessageDialog(frame,
 						"<html>Please return the computer to the Spymasters<br> If you are the Spymaster, please press 'OK'.</html>",
 						"TURN OVER",
