@@ -9,9 +9,6 @@ import java.util.Collections;
 
 public class Board {
 	
-	//boolean used to keep track of which team's turn it is
-	//private boolean redTeamTurn;
-	
 	private int turnCount;
 	//0 is red, 1 is blue, 2 is green
 	private boolean twoPlayerGame;
@@ -253,6 +250,8 @@ public class Board {
 	/*
 	 * updates the turnCount by one, if it goes over the amount for its respective gamemode it goes back to 0 (redteam)
 	 * if the team is out (chose the first assassin in 3Team game) then skips their turn 
+	 * uses magic ;)
+	 * s/o my mans Shia
 	 */
 	public void updateTurn() {
 		if(count == 0) {
